@@ -1,4 +1,4 @@
-package com.example.bt_chattool;
+package com.example.bt_chattool.Client;
 
 class Client {
     public static void main(String[] args) {

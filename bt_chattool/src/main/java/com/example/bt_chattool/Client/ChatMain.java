@@ -1,4 +1,4 @@
-package com.example.bt_chattool;
+package com.example.bt_chattool.Client;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
