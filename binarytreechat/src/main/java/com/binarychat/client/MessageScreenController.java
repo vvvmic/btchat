@@ -18,4 +18,9 @@ public class MessageScreenController {
         if(!message.getText().isEmpty())
             send.setDisable(false);
     }
+
+    protected void onSend(ActionEvent event) {
+        // TODO: 26.12.2022// constructor MessageScreen aufrufen und ip,name, port übergeben
+    }
+
 }

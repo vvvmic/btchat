@@ -33,8 +33,20 @@ public class LoginScreenController {
         Scene scene = new Scene(fxmlLoader.load(), 720, 720);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("BinaryChat");
-
+        // TODO: 26.12.2022// constructor LoginScreen aufrufen und ip,name, port übergeben
         stage.setScene(scene);
+    }
+
+    public String getUsername(){
+        return usernameField.getText();
+    }
+
+    public String getIpAddress(){
+        return ipAddressField.getText();
+    }
+
+    public int getPort(){
+        return Integer.parseInt(String.valueOf(portField));
     }
 
     @FXML
