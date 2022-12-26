@@ -46,12 +46,12 @@
     </TextArea>
 
 
-    <TextArea fx:id="message" onKeyTyped="#onSend" layoutX="50.0" layoutY="510.0" prefHeight="85.0" prefWidth="460.0" promptText="Enter your message here" wrapText="true">
+    <TextArea fx:id="message" onKeyTyped="#onMessage" layoutX="50.0" layoutY="510.0" prefHeight="85.0" prefWidth="460.0" promptText="Enter your message here" wrapText="true">
         <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
         </padding>
     </TextArea>
-    <Button fx:id="send" layoutX="540.0" layoutY="540.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Send" textAlignment="RIGHT"/>
+    <Button fx:id="send" disable="true" layoutX="540.0" layoutY="540.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Send" textAlignment="RIGHT"/>
 
 
     <Text fill="#726c6c" layoutX="203.0" layoutY="671.0" stroke="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="logged as"/>

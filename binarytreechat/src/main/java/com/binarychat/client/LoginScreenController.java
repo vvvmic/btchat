@@ -33,21 +33,25 @@ public class LoginScreenController {
         Scene scene = new Scene(fxmlLoader.load(), 720, 720);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("BinaryChat");
+
         stage.setScene(scene);
     }
 
     @FXML
     protected void onUsernameChanged(KeyEvent event) {
-        connectButton.setDisable(usernameField.getText().isEmpty() || ipAddressField.getText().isEmpty() || portField.getText().isEmpty());
+        if(!usernameField.getText().isEmpty() && !ipAddressField.getText().isEmpty() && !portField.getText().isEmpty())
+            connectButton.setDisable(false);
     }
 
     @FXML
     protected void onIpAddressChanged(KeyEvent event) {
-        connectButton.setDisable(usernameField.getText().isEmpty() || ipAddressField.getText().isEmpty() || portField.getText().isEmpty());
+        if(!usernameField.getText().isEmpty() && !ipAddressField.getText().isEmpty() && !portField.getText().isEmpty())
+            connectButton.setDisable(false);
     }
 
     @FXML
     protected void onPortChanged(KeyEvent event) {
-        connectButton.setDisable(usernameField.getText().isEmpty() || ipAddressField.getText().isEmpty() || portField.getText().isEmpty());
+        if(!usernameField.getText().isEmpty() && !ipAddressField.getText().isEmpty() && !portField.getText().isEmpty())
+            connectButton.setDisable(false);
     }
 }

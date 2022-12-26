@@ -1,5 +1,6 @@
 package com.binarychat.client;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -13,7 +14,8 @@ public class MessageScreenController {
     private Button send;
 
     @FXML
-    public void onSend(KeyEvent event) {
-        send.setDisable(message.getText().isEmpty());
+    public void onMessage(KeyEvent event) {
+        if(!message.getText().isEmpty())
+            send.setDisable(false);
     }
 }
