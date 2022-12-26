@@ -33,7 +33,7 @@ public class LoginScreenController {
         Scene scene = new Scene(fxmlLoader.load(), 720, 720);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("BinaryChat");
-        // TODO: 26.12.2022// constructor LoginScreen aufrufen und ip,name, port übergeben
+        LoginScreen loginScreen = new LoginScreen(getUsername(),getIpAddress(),getPort());
         stage.setScene(scene);
     }
 
