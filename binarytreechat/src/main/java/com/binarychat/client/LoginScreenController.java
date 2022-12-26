@@ -1,4 +1,53 @@
 package com.binarychat.client;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
 public class LoginScreenController {
+
+    @FXML
+    private TextField usernameField;
+
+    @FXML
+    private TextField ipAddressField;
+
+    @FXML
+    private TextField portField;
+
+    @FXML
+    private Button connectButton;
+
+    @FXML
+    protected void onConnect(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("MessageScreen.fxml"));
+
+        Stage stage = (Stage) connectButton.getScene().getWindow();
+        Scene scene = new Scene(fxmlLoader.load(), 720, 720);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        stage.setTitle("BinaryChat");
+        stage.setScene(scene);
+    }
+
+    @FXML
+    protected void onUsernameChanged(KeyEvent event) {
+        connectButton.setDisable(usernameField.getText().isEmpty() || ipAddressField.getText().isEmpty() || portField.getText().isEmpty());
+    }
+
+    @FXML
+    protected void onIpAddressChanged(KeyEvent event) {
+        connectButton.setDisable(usernameField.getText().isEmpty() || ipAddressField.getText().isEmpty() || portField.getText().isEmpty());
+    }
+
+    @FXML
+    protected void onPortChanged(KeyEvent event) {
+        connectButton.setDisable(usernameField.getText().isEmpty() || ipAddressField.getText().isEmpty() || portField.getText().isEmpty());
+    }
 }

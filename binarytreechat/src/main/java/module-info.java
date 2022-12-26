@@ -3,6 +3,6 @@ module com.example.binarytreechat {
     requires javafx.fxml;
 
 
-    opens com.example.binarytreechat to javafx.fxml;
-    exports com.example.binarytreechat;
+    exports com.binarychat.client;
+    opens com.binarychat.client to javafx.fxml;
 }

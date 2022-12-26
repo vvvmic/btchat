@@ -1,0 +1,31 @@
+#helloText {
+    -fx-font-size: 24;
+    -fx-font-family: "Proxima Nova";
+}
+
+.text-field {
+    -fx-font-size: 18;
+    -fx-background-radius: 25;
+    -fx-background-color: #FFFFFF
+}
+
+.button {
+    -fx-font-size: 18;
+    -fx-background-color: #27AE60;
+    -fx-background-radius: 25;
+    -fx-text-fill: #FFFFFF;
+}
+
+.text-area {
+    -fx-font-size: 14;
+    -fx-background-color: #FFFFFF;
+}
+
+.text-area .content {
+    -fx-font-size: 14;
+    -fx-background-color: #FFFFFF;
+}
+
+#message {
+    -fx-font-size: 18;
+}
