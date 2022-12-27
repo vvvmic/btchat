@@ -39,7 +39,6 @@ public class MessageScreenController {
         Scene scene = new Scene(fxmlLoader.load(), 720, 720);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("BinaryChat");
-        /*        LoginScreen loginScreen = new LoginScreen(getUsername(),getIpAddress(),getPort());*/
         stage.setScene(scene);
     }
 
