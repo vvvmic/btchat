@@ -8,6 +8,7 @@
 <?import javafx.scene.text.Text?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <AnchorPane prefHeight="720.0" prefWidth="720.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.binarychat.client.MessageScreenController">
 
     <ImageView fitHeight="28.0" fitWidth="231.0" layoutX="56.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="720.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="527.4385986328125" AnchorPane.topAnchor="50.0">
@@ -51,12 +52,24 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
         </padding>
     </TextArea>
-    <Button fx:id="send" disable="true" layoutX="540.0" layoutY="540.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Send" textAlignment="RIGHT"/>
+    <Button fx:id="sendButton" disable="true" layoutX="540.0" layoutY="540.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Send" textAlignment="RIGHT">
+    <cursor>
+        <Cursor fx:constant="HAND" />
+    </cursor>
+    </Button>
 
 
     <Text fill="#726c6c" layoutX="203.0" layoutY="671.0" stroke="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="logged as"/>
-    <Text layoutX="275.0" layoutY="671.0" stroke="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="username C" textAlignment="CENTER"/>
+    <Text fx:id="username" layoutX="275.0" layoutY="671.0" stroke="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="username C" textAlignment="CENTER"/>
 
-    <Button layoutX="52.0" layoutY="647.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Log out"/>
+    <Button fx:id="logoutButton" onAction="#onLogout" layoutX="52.0" layoutY="647.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Log out">
+        <cursor>
+        <Cursor fx:constant="HAND" />
+        </cursor>
+    </Button>
+
+
+
+
 
 </AnchorPane>

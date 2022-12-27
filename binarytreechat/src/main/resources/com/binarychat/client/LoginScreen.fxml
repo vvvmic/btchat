@@ -7,6 +7,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.Cursor?>
 <AnchorPane prefHeight="720.0" prefWidth="720.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.binarychat.client.LoginScreenController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
@@ -21,5 +22,10 @@
     <TextField fx:id="usernameField" onKeyTyped="#onUsernameChanged" layoutX="200.0" layoutY="342.0" prefHeight="35.0" prefWidth="320.0" promptText="Enter your name"/>
     <TextField fx:id="ipAddressField" onKeyTyped="#onIpAddressChanged" layoutX="200.0" layoutY="402.0" prefHeight="35.0" prefWidth="320.0" promptText="Enter your IP-address"/>
     <TextField fx:id="portField" onKeyTyped="#onPortChanged" layoutX="200.0" layoutY="462.0" prefHeight="35.0" prefWidth="320.0" promptText="Enter your port"/>
-    <Button fx:id="connectButton" onAction="#onConnect" disable="true" layoutX="300.0" layoutY="522.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Connect"/>
+    <Button fx:id="connectButton" onAction="#onConnect" disable="true" layoutX="300.0" layoutY="522.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Connect">
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </Button>
+
 </AnchorPane>
