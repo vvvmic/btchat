@@ -37,15 +37,15 @@ public class LoginScreenController {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("MessageScreen.fxml"));
         Parent root = fxmlLoader.load();
         MessageScreenController messageScreenController = fxmlLoader.getController();
-        messageScreenController.setUsername(this.getUsername());
+        messageScreenController.setUsername(this.usernameField.getText());
 
         Scene scene = new Scene(root, 720, 720);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("BinaryChat");
-        username = usernameField.getText();
+/*      username = usernameField.getText();
         ipAddress = ipAddressField.getText();
         port = Integer.parseInt(portField.getText());
-        LoginScreen loginScreen = new LoginScreen(getUsername(),getIpAddress(),getPort());
+        LoginScreen loginScreen = new LoginScreen(getUsername(),getIpAddress(),getPort());*/
         stage.setScene(scene);
     }
 
