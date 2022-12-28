@@ -2,7 +2,7 @@ package com.binarychat.conveyable;
 
 import java.time.*;
 
-public abstract class Conveyable {
+public abstract class BasicMessage {
     // === 0. NOTES ===
     // === 1. CLASS VARIABLES ===
     // === 2. OBJECT VARIABLES ===
@@ -17,11 +17,11 @@ public abstract class Conveyable {
     // --- 3.2 INSTANCE INITIALIZER ---
     // --- 3.3 REAL CONSTRUCTORS ---
     /* constructor when a message is being created, all fields are mandatory */
-    public Conveyable(String sender, String recipient, LocalDateTime createdTimeStamp) {
+    public BasicMessage(String sender, String recipient, LocalDateTime createdTimeStamp) {
         this.sender = sender;
         this.recipient = recipient;
         this.createdTimeStamp = createdTimeStamp;
-    }//end public Conveyable(String sender, String recipient, LocalDateTime createdTimeStamp)
+    }//end public BasicMessage(String sender, String recipient, LocalDateTime createdTimeStamp)
 
 
     // === 4. STATIC METHODS ===
@@ -49,4 +49,4 @@ public abstract class Conveyable {
 
     // === 6. MISCELLANEOUS OBJECT METHODS ===
     // === 7. MAIN ===
-}//end public abstract class Conveyable
+}//end public abstract class BasicMessage

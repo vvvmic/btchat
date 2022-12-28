@@ -2,7 +2,7 @@ package com.binarychat.conveyable;
 
 import java.time.LocalDateTime;
 
-public class Textmessage extends Conveyable {
+public class Textmessage extends BasicMessage {
     // === 0. NOTES ===
     // === 1. CLASS VARIABLES ===
     // === 2. OBJECT VARIABLES ===
@@ -28,4 +28,4 @@ public class Textmessage extends Conveyable {
 
     // === 6. MISCELLANEOUS OBJECT METHODS ===
     // === 7. MAIN ===
-}//end public class Textmessage extends Conveyable
+}//end public class Textmessage extends BasicMessage
