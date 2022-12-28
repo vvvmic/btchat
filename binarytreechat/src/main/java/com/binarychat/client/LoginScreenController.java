@@ -45,6 +45,9 @@ public class LoginScreenController {
         Scene scene = new Scene(root, 720, 720);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("BinaryChat");
+        username = usernameField.getText();
+        ipAddress = ipAddressField.getText();
+        port = Integer.parseInt(portField.getText());
         LoginScreen loginScreen = new LoginScreen(getUsername(),getIpAddress(),getPort());
         stage.setScene(scene);
     }
