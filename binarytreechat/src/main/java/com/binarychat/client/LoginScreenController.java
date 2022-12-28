@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -27,33 +26,34 @@ public class LoginScreenController {
     @FXML
     private Button connectButton;
 
+    private String username;
+    private String ipAddress;
+    private int port;
+
     @FXML
     protected void onConnect(ActionEvent event) throws IOException {
         Stage stage = (Stage) connectButton.getScene().getWindow();
+
+        username = usernameField.getText();
+        ipAddress = ipAddressField.getText();
+        port = Integer.parseInt(portField.getText());
 
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("MessageScreen.fxml"));
         Parent root = fxmlLoader.load();
         MessageScreenController messageScreenController = fxmlLoader.getController();
         messageScreenController.setUsername(this.getUsername());
-
         Scene scene = new Scene(root, 720, 720);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("BinaryChat");
-/*        LoginScreen loginScreen = new LoginScreen(getUsername(),getIpAddress(),getPort());*/
+        LoginScreen loginScreen = new LoginScreen(getUsername(),getIpAddress(),getPort());
         stage.setScene(scene);
     }
 
-    public String getUsername(){
-        return usernameField.getText();
-    }
+    public String getUsername(){return username;}
 
-    public String getIpAddress(){
-        return ipAddressField.getText();
-    }
+    public String getIpAddress(){return ipAddress;}
 
-/*    public int getPort(){
-        return Integer.parseInt(String.valueOf(portField));
-    }*/
+    public int getPort(){return port;}
 
     @FXML
     protected void onUsernameChanged(KeyEvent event) {
