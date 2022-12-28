@@ -11,6 +11,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.Socket;
 
 public class LoginScreenController {
 
@@ -41,15 +42,14 @@ public class LoginScreenController {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("MessageScreen.fxml"));
         Parent root = fxmlLoader.load();
         MessageScreenController messageScreenController = fxmlLoader.getController();
-        messageScreenController.setUsername(this.getUsername());
+        messageScreenController.setIpAddress(this.ipAddress);
+        messageScreenController.setPort(this.port);
+        messageScreenController.setUsernameField(this.username);
         Scene scene = new Scene(root, 720, 720);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("BinaryChat");
-        username = usernameField.getText();
-        ipAddress = ipAddressField.getText();
-        port = Integer.parseInt(portField.getText());
-        LoginScreen loginScreen = new LoginScreen(getUsername(),getIpAddress(),getPort());
         stage.setScene(scene);
+
     }
 
     public String getUsername(){return username;}

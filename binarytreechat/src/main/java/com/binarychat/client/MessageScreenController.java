@@ -1,6 +1,5 @@
 package com.binarychat.client;
 
-import com.binarychat.server.Server;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -8,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -20,12 +20,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
-
 import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MessageScreenController {
+public class MessageScreenController implements Initializable{
 
     @FXML
     private ScrollPane scroll;
@@ -43,9 +43,11 @@ public class MessageScreenController {
     private Button logoutButton;
 
     @FXML
-    private Text username;
+    private Text usernameField;
 
-    private Server server;
+    private String ipAddress;
+    private String username;
+    private int port;
 
     private Client client;
 
@@ -66,13 +68,15 @@ public class MessageScreenController {
         stage.setScene(scene);
     }
 
-/*    @Override*/
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
-/*        try {
-            server = new TestServer (new ServerSocket(1234));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/
+        try {
+            LoginScreenController loginScreenController = new LoginScreenController();
+            //Todo: client eingebenene IP und Port übergeben
+            client = new Client(new Socket("192.168.2.81", 5000));
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
 
         vBox.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -86,7 +90,7 @@ public class MessageScreenController {
         sendButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                String messageToSend = message.getText();
+                String messageToSend = (username + message.getText());
                 HBox hbox = new HBox();
                 hbox.setAlignment(Pos.CENTER_RIGHT); //TODO: Ausrichtung, wie machen wir das
                 hbox.setPadding(new Insets(5,5,5,10));
@@ -132,12 +136,18 @@ public class MessageScreenController {
         });
     }
 
-    public void setUsername(String username) {
-        this.username.setText(username);
+    public void setUsernameField(String usernameField) {
+        this.usernameField.setText(usernameField);
     }
 
-    protected void onSend(ActionEvent event) {
-        // TODO: 26.12.2022// constructor MessageScreen aufrufen und ip,name, port übergeben
+    public void setUsername(String usernameField) { this.username = usernameField; }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
     }
 
 }

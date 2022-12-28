@@ -68,7 +68,7 @@
     </Button>
 
     <Text fill="#726c6c" layoutX="203.0" layoutY="671.0" stroke="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="logged as" />
-    <Text fx:id="username" layoutX="275.0" layoutY="671.0" stroke="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="username C" textAlignment="CENTER" />
+    <Text fx:id="usernameField" layoutX="275.0" layoutY="671.0" stroke="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="username C" textAlignment="CENTER" />
 
     <Button fx:id="logoutButton" layoutX="52.0" layoutY="647.0" mnemonicParsing="false" onAction="#onLogout" prefHeight="35.0" prefWidth="120.0" text="Log out">
         <cursor>

@@ -18,9 +18,11 @@ public class Client {
             this.socket = socket;
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        }catch(IOException e){
+            PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
+            printWriter.println("Test: has joined chat-room.");
+        }catch(IOException exception){
             System.out.println("Error creating Client!");
-            e.printStackTrace();
+            exception.printStackTrace();
             closeEverything(socket, bufferedReader, bufferedWriter);
         }
     }
@@ -36,8 +38,8 @@ public class Client {
             if (socket != null) {
                 socket.close();
             }
-        }catch(IOException e){
-            e.printStackTrace();
+        }catch(IOException exception){
+            exception.printStackTrace();
         }
     }
 
@@ -47,8 +49,8 @@ public class Client {
             bufferedWriter.write(messageToServer);
             bufferedWriter.newLine();
             bufferedWriter.flush();
-        }catch(IOException e){
-            e.printStackTrace();
+        }catch(IOException exception){
+            exception.printStackTrace();
             System.out.println("Error sending message to the Server!");
             closeEverything(socket, bufferedReader, bufferedWriter);
         }
