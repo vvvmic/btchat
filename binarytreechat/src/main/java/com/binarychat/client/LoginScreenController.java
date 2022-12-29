@@ -1,5 +1,7 @@
 package com.binarychat.client;
 
+import com.binarychat.IPAddress.checkIPAddress;
+import com.binarychat.IPAddress.checkPort;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -66,13 +68,15 @@ public class LoginScreenController {
 
     @FXML
     protected void onIpAddressChanged(KeyEvent event) {
-        if(!usernameField.getText().isEmpty() && !ipAddressField.getText().isEmpty() && !portField.getText().isEmpty())
+        if(!usernameField.getText().isEmpty() && !ipAddressField.getText().isEmpty() && !portField.getText().isEmpty() &&
+                checkIPAddress.validateIP(ipAddressField.getText()))
             connectButton.setDisable(false);
     }
 
     @FXML
     protected void onPortChanged(KeyEvent event) {
-        if(!usernameField.getText().isEmpty() && !ipAddressField.getText().isEmpty() && !portField.getText().isEmpty())
+        if(!usernameField.getText().isEmpty() && !ipAddressField.getText().isEmpty() && !portField.getText().isEmpty() &&
+                checkPort.validatePort(Integer.parseInt(portField.getText())))
             connectButton.setDisable(false);
     }
 }

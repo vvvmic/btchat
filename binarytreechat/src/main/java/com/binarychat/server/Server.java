@@ -1,6 +1,7 @@
 package com.binarychat.server;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -16,10 +17,16 @@ public class Server {
 
     //Methode startServer
     public void startServer(){
+        InetAddress ip;
+        String hostname;
 
         try {
+            ip = InetAddress.getLocalHost();
+            hostname = ip.getHostName();
+            System.out.println("Your current IP address : " + ip);
+            System.out.println("Your current Hostname : " + hostname);
             while(!serverSocket.isClosed()){
-                Socket socket = serverSocket.accept();
+                                Socket socket = serverSocket.accept();
                 System.out.println("A new client has connected");
                 ClientHandler clientHandler = new ClientHandler(socket);
 

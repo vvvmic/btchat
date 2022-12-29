@@ -72,8 +72,8 @@ public class MessageScreenController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         try {
             LoginScreenController loginScreenController = new LoginScreenController();
-            //Todo: client eingebenene IP und Port übergeben
-            client = new Client(new Socket("192.168.2.81", 5000));
+            //Todo: client eingebenene IP und Port übergeben LoginScreenControler static machen?
+            client = new Client(new Socket("192.168.2.81", 1236));
         } catch (IOException exception) {
             exception.printStackTrace();
         }
