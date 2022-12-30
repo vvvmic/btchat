@@ -84,7 +84,7 @@ public class MessageScreenController implements Initializable{
         sendButton.setOnAction(new EventHandler<ActionEvent>() { //adding functionality to the bottom
             @Override
             public void handle(ActionEvent event) {
-                String messageToSend = (LoginScreenController.getUsername() + message.getText());
+                String messageToSend = (LoginScreenController.getUsername() + ": " + message.getText());
                 HBox hbox = new HBox();
                 hbox.setAlignment(Pos.CENTER_RIGHT); //Ausrichtung von Hbox
                 hbox.setPadding(new Insets(5,5,5,10));
