@@ -11,10 +11,9 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -43,9 +42,15 @@ public class MessageScreenController implements Initializable{
     private Button logoutButton;
 
     @FXML
+    private Button saveTextFile;
+
+    @FXML
     private Text usernameField;
 
     private Client client;
+
+
+
 
     @FXML
     public void onMessage(KeyEvent event) {
@@ -55,13 +60,25 @@ public class MessageScreenController implements Initializable{
 
     @FXML
     protected void onLogout(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("LoginScreen.fxml"));
 
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Logout");
+        alert.setHeaderText("You are about to log out!");
+        alert.setContentText("Do you really want to log out?");
+
+        if(alert.showAndWait().get() == ButtonType.OK){
+        FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("LoginScreen.fxml"));
         Stage stage = (Stage) logoutButton.getScene().getWindow();
         Scene scene = new Scene(fxmlLoader.load(), 720, 720);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("BinaryChat");
-        stage.setScene(scene);
+        client.logoutfromServer(this.client);
+        stage.setScene(scene);}
+    }
+
+    @FXML
+    protected void saveListToTextFile(ActionEvent event) {
+        printMessageList.printMessageList(client.getMessageList());
     }
 
     @Override
@@ -84,7 +101,8 @@ public class MessageScreenController implements Initializable{
         sendButton.setOnAction(new EventHandler<ActionEvent>() { //adding functionality to the bottom
             @Override
             public void handle(ActionEvent event) {
-                String messageToSend = (LoginScreenController.getUsername() + ": " + message.getText());
+                String messageToSend = (message.getText());
+
                 HBox hbox = new HBox();
                 hbox.setAlignment(Pos.CENTER_RIGHT); //Ausrichtung von Hbox
                 hbox.setPadding(new Insets(10,15,10,5));

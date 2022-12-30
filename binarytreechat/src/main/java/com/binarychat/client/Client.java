@@ -4,6 +4,8 @@ import javafx.scene.layout.VBox;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Client {
     // TODO: 26.12.2022 In and Output messages
@@ -12,6 +14,7 @@ public class Client {
     private Socket socket; //listen for incoming connections
     private BufferedReader bufferedReader; //read data from the server
     private BufferedWriter bufferedWriter; //write data to the server
+    private List<String> messageList = new ArrayList<String>();
 
     public Client(Socket socket) {
         try{
@@ -27,7 +30,7 @@ public class Client {
         }
     }
 
-    private void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter){
+    public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter){
         try{
             if (bufferedReader != null) {
                 bufferedReader.close();
@@ -46,9 +49,10 @@ public class Client {
 
     public void sendMessageToServer(String messageToServer) {
         try{
-            bufferedWriter.write(messageToServer);
+            bufferedWriter.write(LoginScreenController.getUsername()+ ": " + messageToServer);
             bufferedWriter.newLine(); //it is only sent when buffer is full
             bufferedWriter.flush(); //doing it manually
+            messageList.add(LoginScreenController.getUsername()+ ": " + messageToServer);
         }catch(IOException exception){
             exception.printStackTrace();
             System.out.println("Error sending message to the Server!");
@@ -64,8 +68,9 @@ public class Client {
                     try{
                         String messageFromServer = bufferedReader.readLine();
                         MessageScreenController.addLabel(messageFromServer, vBox);
-                    }catch (IOException e){
-                        e.printStackTrace();
+                        messageList.add(messageFromServer);
+                    }catch (IOException exception){
+                        exception.printStackTrace();
                         System.out.println("Error receiving message from the Server!");
                         closeEverything(socket, bufferedReader, bufferedWriter);
                         break;
@@ -75,5 +80,25 @@ public class Client {
         }).start();
     }
 
+    public void logoutfromServer(Client client) throws IOException {
+        sendMessageToServer(LoginScreenController.getUsername() + " left the chat-room.");
+        //client.getBufferedReader().close();
+        //client.getBufferedWriter().close();
+        client.getSocket().close();
 
+    }
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public BufferedReader getBufferedReader() {
+        return bufferedReader;
+    }
+
+    public BufferedWriter getBufferedWriter() {
+        return bufferedWriter;
+    }
+
+    public List<String> getMessageList(){ return messageList; }
 }

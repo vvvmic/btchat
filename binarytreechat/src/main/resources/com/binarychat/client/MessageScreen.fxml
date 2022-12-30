@@ -74,4 +74,10 @@
         </cursor>
     </Button>
 
+    <Button fx:id="saveTextFile" layoutX="540.0" layoutY="647.0" mnemonicParsing="false" onAction="#saveListToTextFile" prefHeight="35.0" prefWidth="120.0" text="Save Messages to Textfile">
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </Button>
+
 </AnchorPane>
