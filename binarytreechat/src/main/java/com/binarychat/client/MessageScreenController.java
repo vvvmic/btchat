@@ -45,10 +45,6 @@ public class MessageScreenController implements Initializable{
     @FXML
     private Text usernameField;
 
-    private String ipAddress;
-    private String username;
-    private int port;
-
     private Client client;
 
     @FXML
@@ -71,9 +67,7 @@ public class MessageScreenController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            LoginScreenController loginScreenController = new LoginScreenController();
-            //Todo: client eingebenene IP und Port übergeben LoginScreenControler static machen?
-            client = new Client(new Socket("192.168.2.81", 1236));
+            client = new Client(new Socket(LoginScreenController.getIpAddress(), LoginScreenController.getPort()));
         } catch (IOException exception) {
             exception.printStackTrace();
         }
@@ -90,7 +84,7 @@ public class MessageScreenController implements Initializable{
         sendButton.setOnAction(new EventHandler<ActionEvent>() { //adding functionality to the bottom
             @Override
             public void handle(ActionEvent event) {
-                String messageToSend = (username + message.getText());
+                String messageToSend = (LoginScreenController.getUsername() + message.getText());
                 HBox hbox = new HBox();
                 hbox.setAlignment(Pos.CENTER_RIGHT); //Ausrichtung von Hbox
                 hbox.setPadding(new Insets(5,5,5,10));
@@ -137,16 +131,6 @@ public class MessageScreenController implements Initializable{
 
     public void setUsernameField(String usernameField) {
         this.usernameField.setText(usernameField);
-    }
-
-    public void setUsername(String usernameField) { this.username = usernameField; }
-
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
     }
 
 }

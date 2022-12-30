@@ -11,9 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.net.Socket;
+
 
 public class LoginScreenController {
 
@@ -29,9 +28,9 @@ public class LoginScreenController {
     @FXML
     private Button connectButton;
 
-    private String username;
-    private String ipAddress;
-    private int port;
+    private static String username;
+    private static String ipAddress;
+    private static int port;
 
     @FXML
     protected void onConnect(ActionEvent event) throws IOException {
@@ -44,21 +43,20 @@ public class LoginScreenController {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("MessageScreen.fxml"));
         Parent root = fxmlLoader.load();
         MessageScreenController messageScreenController = fxmlLoader.getController();
-        messageScreenController.setIpAddress(this.ipAddress);
-        messageScreenController.setPort(this.port);
+        //messageScreenController.setIpAddress(this.ipAddress);
+        //messageScreenController.setPort(this.port);
         messageScreenController.setUsernameField(this.username);
         Scene scene = new Scene(root, 720, 720);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("BinaryChat");
         stage.setScene(scene);
-
     }
 
-    public String getUsername(){return username;}
+    public static String getUsername(){return username;}
 
-    public String getIpAddress(){return ipAddress;}
+    public static String getIpAddress(){return ipAddress;}
 
-    public int getPort(){return port;}
+    public static int getPort(){return port;}
 
     @FXML
     protected void onUsernameChanged(KeyEvent event) {
@@ -68,8 +66,7 @@ public class LoginScreenController {
 
     @FXML
     protected void onIpAddressChanged(KeyEvent event) {
-        if(!usernameField.getText().isEmpty() && !ipAddressField.getText().isEmpty() && !portField.getText().isEmpty() &&
-                checkIPAddress.validateIP(ipAddressField.getText()))
+        if(!usernameField.getText().isEmpty() && !ipAddressField.getText().isEmpty() && !portField.getText().isEmpty() && checkIPAddress.validateIP(ipAddressField.getText()))
             connectButton.setDisable(false);
     }
 

@@ -19,7 +19,7 @@ public class Client {
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
-            printWriter.println("Test: has joined chat-room.");
+            printWriter.println(LoginScreenController.getUsername()+ ": has joined chat-room.");
         }catch(IOException exception){
             System.out.println("Error creating Client!");
             exception.printStackTrace();
