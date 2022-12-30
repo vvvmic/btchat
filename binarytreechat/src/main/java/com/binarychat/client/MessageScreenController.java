@@ -87,14 +87,15 @@ public class MessageScreenController implements Initializable{
                 String messageToSend = (LoginScreenController.getUsername() + ": " + message.getText());
                 HBox hbox = new HBox();
                 hbox.setAlignment(Pos.CENTER_RIGHT); //Ausrichtung von Hbox
-                hbox.setPadding(new Insets(5,5,5,10));
+                hbox.setPadding(new Insets(10,15,10,5));
 
                 Text text = new Text(messageToSend);
                 TextFlow textFlow = new TextFlow(text); //wrapping the text, reach TextField
+                textFlow.setId("textflow");
 
-                textFlow.setStyle("-fx-text-fill: #FFFFFF;" + "-fx-background-color: #27AE60;" + "-fx-background-radius: 25;");
+                textFlow.setStyle("-fx-background-color: #27AE60;" + "-fx-background-radius: 25;");
 
-                textFlow.setPadding(new Insets(5,10,5,10));
+                textFlow.setPadding(new Insets(10,15,10,15));
 
                 hbox.getChildren().add(textFlow); //adding Textflow to horizontal box
                 vBox.getChildren().add(hbox); //dding horizontal box to vertical box
@@ -109,16 +110,18 @@ public class MessageScreenController implements Initializable{
     public static void addLabel(String messageFromServer, VBox vBox){ //GUI for receiving of messages
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_LEFT);
-        hBox.setPadding(new Insets(5, 5, 5, 10));
+        hBox.setPadding(new Insets(10,5,10,15));
 
         Text text = new Text(messageFromServer);
         TextFlow textFlow = new TextFlow(text);
+        textFlow.setId("textflow2");
+
 
         textFlow.setStyle(
                 "-fx-text-fill: #000000;" + "-fx-background-color: #DDDDDD;" +
                         "-fx-background-radius: 20px;");
 
-        textFlow.setPadding(new Insets(5, 10, 5, 10));
+        textFlow.setPadding(new Insets(10,15,10,15));
         hBox.getChildren().add(textFlow); //adding to Hbox
 
         Platform.runLater(new Runnable() { //we could not be using another Thread, but this helps us with this problem

@@ -16,8 +16,6 @@
     <ImageView fitHeight="28.0" fitWidth="231.0" layoutX="56.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="720.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="527.4385986328125" AnchorPane.topAnchor="50.0">
         <Image url="@pictures/Logo2.png" /> </ImageView>
 
-    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eceff2" height="335.0" layoutX="49.0" layoutY="125.0" smooth="false" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="620.0" />
-
 
     <!--<ImageView fitHeight="24.0" fitWidth="24.0" layoutX="92.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@pictures/user.png"/> </ImageView>

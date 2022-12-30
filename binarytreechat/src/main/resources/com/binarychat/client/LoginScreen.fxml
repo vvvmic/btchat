@@ -27,7 +27,7 @@
         </cursor>
     </Button>
 
-    <Button fx:id="homeButton" layoutX="14.0" layoutY="671.0" mnemonicParsing="false" onAction="#backToHomeScreen" prefHeight="35.0" prefWidth="250.0" text="Home Screen">
+    <Button fx:id="homeButton" layoutX="52.0" layoutY="647.0" mnemonicParsing="false" onAction="#backToHomeScreen" prefHeight="35.0" prefWidth="120.0" text="Cancel">
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor>
