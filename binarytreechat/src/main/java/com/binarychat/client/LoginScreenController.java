@@ -28,6 +28,9 @@ public class LoginScreenController {
     @FXML
     private Button connectButton;
 
+    @FXML
+    private Button homeButton;
+
     private static String username;
     private static String ipAddress;
     private static int port;
@@ -43,10 +46,19 @@ public class LoginScreenController {
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("MessageScreen.fxml"));
         Parent root = fxmlLoader.load();
         MessageScreenController messageScreenController = fxmlLoader.getController();
-        //messageScreenController.setIpAddress(this.ipAddress);
-        //messageScreenController.setPort(this.port);
         messageScreenController.setUsernameField(this.username);
         Scene scene = new Scene(root, 720, 720);
+        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        stage.setTitle("BinaryChat");
+        stage.setScene(scene);
+    }
+
+    @FXML
+    protected void backToHomeScreen(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("StartScreen.fxml"));
+
+        Stage stage = (Stage) homeButton.getScene().getWindow();
+        Scene scene = new Scene(fxmlLoader.load(), 720, 720);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("BinaryChat");
         stage.setScene(scene);

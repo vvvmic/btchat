@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.Cursor?>
-<AnchorPane prefHeight="720.0" prefWidth="720.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.binarychat.client.LoginScreenController">
+<AnchorPane prefHeight="720.0" prefWidth="720.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="com.binarychat.client.LoginScreenController">
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
 
-    <ImageView fitHeight="150.0" fitWidth="395.0" layoutX="162.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" >
-        <Image url="@pictures/Logo2.png"/>
+    <ImageView fitHeight="150.0" fitWidth="395.0" layoutX="162.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@pictures/Logo2.png" />
     </ImageView>
 
-    <Text fx:id="helloText" layoutX="175.0" layoutY="282.0" text="Welcome to the chat of the future"/>
+    <Text fx:id="helloText" layoutX="175.0" layoutY="282.0" text="Welcome to the chat of the future" />
 
-    <TextField fx:id="usernameField" onKeyTyped="#onUsernameChanged" layoutX="200.0" layoutY="342.0" prefHeight="35.0" prefWidth="320.0" promptText="Enter your name"/>
-    <TextField fx:id="ipAddressField" onKeyTyped="#onIpAddressChanged" layoutX="200.0" layoutY="402.0" prefHeight="35.0" prefWidth="320.0" promptText="Enter your IP-address"/>
-    <TextField fx:id="portField" onKeyTyped="#onPortChanged" layoutX="200.0" layoutY="462.0" prefHeight="35.0" prefWidth="320.0" promptText="Enter your port"/>
-    <Button fx:id="connectButton" onAction="#onConnect" disable="true" layoutX="300.0" layoutY="522.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="120.0" text="Connect">
+    <TextField fx:id="usernameField" layoutX="200.0" layoutY="342.0" onKeyTyped="#onUsernameChanged" prefHeight="35.0" prefWidth="320.0" promptText="Enter your name" />
+    <TextField fx:id="ipAddressField" layoutX="200.0" layoutY="402.0" onKeyTyped="#onIpAddressChanged" prefHeight="35.0" prefWidth="320.0" promptText="Enter your IP-address" />
+    <TextField fx:id="portField" layoutX="200.0" layoutY="462.0" onKeyTyped="#onPortChanged" prefHeight="35.0" prefWidth="320.0" promptText="Enter your port" />
+    <Button fx:id="connectButton" disable="true" layoutX="300.0" layoutY="522.0" mnemonicParsing="false" onAction="#onConnect" prefHeight="35.0" prefWidth="120.0" text="Connect">
+        <cursor>
+            <Cursor fx:constant="HAND" />
+        </cursor>
+    </Button>
+
+    <Button fx:id="homeButton" layoutX="14.0" layoutY="671.0" mnemonicParsing="false" onAction="#backToHomeScreen" prefHeight="35.0" prefWidth="250.0" text="Home Screen">
         <cursor>
             <Cursor fx:constant="HAND" />
         </cursor>
