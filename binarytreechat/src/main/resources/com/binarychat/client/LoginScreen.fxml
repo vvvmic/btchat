@@ -18,9 +18,9 @@
 
     <Text fx:id="helloText" layoutX="175.0" layoutY="282.0" text="Welcome to the chat of the future" />
 
-    <TextField fx:id="usernameField" layoutX="200.0" layoutY="342.0" onKeyTyped="#onUsernameChanged" prefHeight="35.0" prefWidth="320.0" promptText="Enter your name" />
-    <TextField fx:id="ipAddressField" layoutX="200.0" layoutY="402.0" onKeyTyped="#onIpAddressChanged" prefHeight="35.0" prefWidth="320.0" promptText="Enter your IP-address" />
-    <TextField fx:id="portField" layoutX="200.0" layoutY="462.0" onKeyTyped="#onPortChanged" prefHeight="35.0" prefWidth="320.0" promptText="Enter your port" />
+    <TextField fx:id="usernameField" layoutX="200.0" layoutY="342.0" onKeyTyped="#setConnectButtonValid" prefHeight="35.0" prefWidth="320.0" promptText="Enter your name" />
+    <TextField fx:id="ipAddressField" layoutX="200.0" layoutY="402.0" onKeyTyped="#setConnectButtonValid" prefHeight="35.0" prefWidth="320.0" promptText="Enter your IP-address" />
+    <TextField fx:id="portField" layoutX="200.0" layoutY="462.0" onKeyTyped="#setConnectButtonValid" prefHeight="35.0" prefWidth="320.0" promptText="Enter your port" />
     <Button fx:id="connectButton" disable="true" layoutX="300.0" layoutY="522.0" mnemonicParsing="false" onAction="#onConnect" prefHeight="35.0" prefWidth="120.0" text="Connect">
         <cursor>
             <Cursor fx:constant="HAND" />
