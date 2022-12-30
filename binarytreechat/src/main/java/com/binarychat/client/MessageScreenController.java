@@ -83,37 +83,36 @@ public class MessageScreenController implements Initializable{
             public void changed(ObservableValue<? extends Number> observableValue, Number oldNumber, Number newNumber) {
                 scroll.setVvalue((Double) newNumber);
             }
-        });
+        }); //a new value for the scroll pane, in order to automatically scroll to the bottom
 
         client.receiveMessageFromServer(vBox);
 
-        sendButton.setOnAction(new EventHandler<ActionEvent>() {
+        sendButton.setOnAction(new EventHandler<ActionEvent>() { //adding functionality to the bottom
             @Override
             public void handle(ActionEvent event) {
                 String messageToSend = (username + message.getText());
                 HBox hbox = new HBox();
-                hbox.setAlignment(Pos.CENTER_RIGHT); //TODO: Ausrichtung, wie machen wir das
+                hbox.setAlignment(Pos.CENTER_RIGHT); //Ausrichtung von Hbox
                 hbox.setPadding(new Insets(5,5,5,10));
 
                 Text text = new Text(messageToSend);
-                TextFlow textFlow = new TextFlow(text);
+                TextFlow textFlow = new TextFlow(text); //wrapping the text, reach TextField
 
                 textFlow.setStyle("-fx-text-fill: #FFFFFF;" + "-fx-background-color: #27AE60;" + "-fx-background-radius: 25;");
 
                 textFlow.setPadding(new Insets(5,10,5,10));
 
-                hbox.getChildren().add(textFlow);
-                vBox.getChildren().add(hbox);
+                hbox.getChildren().add(textFlow); //adding Textflow to horizontal box
+                vBox.getChildren().add(hbox); //dding horizontal box to vertical box
 
                 client.sendMessageToServer(messageToSend);
                 message.clear();
-
             }
         });
 
     }
 
-    public static void addLabel(String messageFromServer, VBox vBox){
+    public static void addLabel(String messageFromServer, VBox vBox){ //GUI for receiving of messages
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.setPadding(new Insets(5, 5, 5, 10));
@@ -122,13 +121,13 @@ public class MessageScreenController implements Initializable{
         TextFlow textFlow = new TextFlow(text);
 
         textFlow.setStyle(
-                "-fx-background-color: rgb(233, 233, 235);" +
+                "-fx-text-fill: #000000;" + "-fx-background-color: #DDDDDD;" +
                         "-fx-background-radius: 20px;");
 
         textFlow.setPadding(new Insets(5, 10, 5, 10));
-        hBox.getChildren().add(textFlow);
+        hBox.getChildren().add(textFlow); //adding to Hbox
 
-        Platform.runLater(new Runnable() {
+        Platform.runLater(new Runnable() { //we could not be using another Thread, but this helps us with this problem
             @Override
             public void run() {
                 vBox.getChildren().add(hBox);

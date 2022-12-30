@@ -9,9 +9,9 @@ public class Client {
     // TODO: 26.12.2022 In and Output messages
 
 
-    private Socket socket;
-    private BufferedReader bufferedReader;
-    private BufferedWriter bufferedWriter;
+    private Socket socket; //listen for incoming connections
+    private BufferedReader bufferedReader; //read data from the server
+    private BufferedWriter bufferedWriter; //write data to the server
 
     public Client(Socket socket) {
         try{
@@ -47,8 +47,8 @@ public class Client {
     public void sendMessageToServer(String messageToServer) {
         try{
             bufferedWriter.write(messageToServer);
-            bufferedWriter.newLine();
-            bufferedWriter.flush();
+            bufferedWriter.newLine(); //it is only sent when buffer is full
+            bufferedWriter.flush(); //doing it manually
         }catch(IOException exception){
             exception.printStackTrace();
             System.out.println("Error sending message to the Server!");
@@ -56,14 +56,14 @@ public class Client {
         }
     }
 
-    public void receiveMessageFromServer(VBox vbox_messages) {
+    public void receiveMessageFromServer(VBox vBox) {
         new Thread(new Runnable() {
             @Override
-            public void run() {
+            public void run() { //listen for messages while the client is still connected
                 while(socket.isConnected()){
                     try{
                         String messageFromServer = bufferedReader.readLine();
-                        MessageScreenController.addLabel(messageFromServer, vbox_messages);
+                        MessageScreenController.addLabel(messageFromServer, vBox);
                     }catch (IOException e){
                         e.printStackTrace();
                         System.out.println("Error receiving message from the Server!");
