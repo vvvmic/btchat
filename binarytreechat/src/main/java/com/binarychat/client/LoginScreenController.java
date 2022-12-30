@@ -71,7 +71,7 @@ public class LoginScreenController {
     public static int getPort(){return port;}
 
     @FXML
-    protected void setConnectButtonValid(KeyEvent event) {
+    protected void setConnectButtonEnable(KeyEvent event) {
         if(!usernameField.getText().isEmpty() && !portField.getText().isEmpty() && checkIPAddress.validateIP(ipAddressField.getText()) && checkPort.validatePort(Integer.parseInt(portField.getText()))) {
             connectButton.setDisable(false);
         }else {
