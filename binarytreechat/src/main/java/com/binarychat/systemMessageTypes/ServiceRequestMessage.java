@@ -15,10 +15,6 @@ public class ServiceRequestMessage implements Serializable {
     // --- 3.1 STATIC BLOCKS ---
     // --- 3.2 INSTANCE INITIALIZER ---
     // --- 3.3 REAL CONSTRUCTORS ---
-    public ServiceRequestMessage(ServiceRequestType serviceRequest) {
-        this.serviceRequest = serviceRequest;
-    }//end public ServiceRequestMessage(String name, ServiceRequestType serviceRequest)
-
     public ServiceRequestMessage(String name, ServiceRequestType serviceRequest) {
         this.name = name;
         this.serviceRequest = serviceRequest;

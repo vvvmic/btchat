@@ -17,7 +17,7 @@ public class ClientHandlerDaemon extends Thread {
     // === 0. NOTES ===
     /* When connecting to the server, a handshake like the following example has to be done first!
     Example:
-    ServiceRequestMessage handshake = new ServiceRequestMessage(this.clientAlias);
+    ServiceRequestMessage handshake = new ServiceRequestMessage(this.clientAlias, HANDSHAKE);
     streamToServer.writeObject(handshake);
     This is needed, to register the client with his alias at the server */
 
