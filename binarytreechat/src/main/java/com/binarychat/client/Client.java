@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Client {
-    // TODO: 26.12.2022 In and Output messages
+    // TODO: 26.12.2022 In and Output userMessageTypes
 
 
     private Socket socket; //listen for incoming connections
@@ -63,7 +63,7 @@ public class Client {
     public void receiveMessageFromServer(VBox vBox) {
         new Thread(new Runnable() {
             @Override
-            public void run() { //listen for messages while the client is still connected
+            public void run() { //listen for userMessageTypes while the client is still connected
                 while(socket.isConnected()){
                     try{
                         String messageFromServer = bufferedReader.readLine();

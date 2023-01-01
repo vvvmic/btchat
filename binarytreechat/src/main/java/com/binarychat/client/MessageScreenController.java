@@ -125,7 +125,7 @@ public class MessageScreenController implements Initializable{
 
     }
 
-    public static void addLabel(String messageFromServer, VBox vBox){ //GUI for receiving of messages
+    public static void addLabel(String messageFromServer, VBox vBox){ //GUI for receiving of userMessageTypes
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.setPadding(new Insets(10,5,10,15));
