@@ -110,6 +110,7 @@ public class ClientHandlerDaemon extends Thread {
             }
 
             clientSocket.close();
+            System.out.println("Client " + this.getName() + " disconnected");
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Client " + this.getName() + " disconnected");
@@ -138,16 +139,12 @@ public class ClientHandlerDaemon extends Thread {
                     break;
                 }
                 else {
-                    //TODO: maybe change to ServiceReplyMessage error
-                    TextMessage errorMessage = new TextMessage("Messenger Daemon", this.getName(),
-                            false, LocalDateTime.now(), "Error: Alias already exists!");
+                    ServiceReplyMessage errorMessage = new ServiceReplyMessage(ServiceReplyType.ALIASNOTAVIABLE);
                     streamToClient.writeObject(errorMessage);
                 }
             }
             else {
-                //TODO: maybe change to ServiceReplyMessage error
-                TextMessage errorMessage = new TextMessage("Messenger Daemon", this.getName(),
-                        false, LocalDateTime.now(), "Error: server handshake needed!");
+                ServiceReplyMessage errorMessage = new ServiceReplyMessage(ServiceReplyType.SERVERHANDSHAKENEEDED);
                 streamToClient.writeObject(errorMessage);
             }
         }
@@ -169,9 +166,7 @@ public class ClientHandlerDaemon extends Thread {
             this.setName(serviceRequestMessage.getName());
         }
         else {
-            //TODO: maybe change to ServiceReplyMessage error
-            TextMessage errorMessage = new TextMessage("Messenger Daemon", this.getName(),
-                    false, LocalDateTime.now(), "Error: Alias already exists!");
+            ServiceReplyMessage errorMessage = new ServiceReplyMessage(ServiceReplyType.ALIASNOTAVIABLE);
             streamToClient.writeObject(errorMessage);
         }
     }//end private void setNewAlias() throws Exception
@@ -183,9 +178,7 @@ public class ClientHandlerDaemon extends Thread {
                 return;
             }
         }
-        //TODO: maybe change to ServiceReplyMessage error
-        TextMessage errorMessage = new TextMessage("Messenger Daemon", this.getName(),
-                false, LocalDateTime.now(), "Error: Group not found!");
+        ServiceReplyMessage errorMessage = new ServiceReplyMessage(ServiceReplyType.RECIPIENTNOTFOUND);
         streamToClient.writeObject(errorMessage);
     }//end private void joinChatGroup(ServiceRequestMessage serviceRequestMessage) throws Exception
 
@@ -196,9 +189,7 @@ public class ClientHandlerDaemon extends Thread {
                 return;
             }
         }
-        //TODO: maybe change to ServiceReplyMessage error
-        TextMessage errorMessage = new TextMessage("Messenger Daemon", this.getName(),
-                false, LocalDateTime.now(), "Error: you are not in that group!");
+        ServiceReplyMessage errorMessage = new ServiceReplyMessage(ServiceReplyType.INVALIDREQUEST);
         streamToClient.writeObject(errorMessage);
     }//end private void exitChatGroup(ServiceRequestMessage serviceRequestMessage) throws Exception
 
@@ -216,9 +207,7 @@ public class ClientHandlerDaemon extends Thread {
             chatGroups.get(chatGroups.size() - 1).getGroupMemberList().add(this);
         }
         else {
-            //TODO: maybe change to ServiceReplyMessage error
-            TextMessage errorMessage = new TextMessage("Messenger Daemon", this.getName(),
-                    false, LocalDateTime.now(), "Error: Group already exists!");
+            ServiceReplyMessage errorMessage = new ServiceReplyMessage(ServiceReplyType.ALIASNOTAVIABLE);
             streamToClient.writeObject(errorMessage);
         }
     }//end private void createChatGroup(ServiceRequestMessage serviceRequestMessage) throws Exception
@@ -241,9 +230,7 @@ public class ClientHandlerDaemon extends Thread {
             System.out.println("Unicast Message forwarded");
         }
         else {
-            //TODO: maybe change to ServiceReplyMessage error
-            TextMessage errorMessage = new TextMessage("Messenger Daemon", this.getName(),
-                    false, LocalDateTime.now(), "Error: recipient not found!");
+            ServiceReplyMessage errorMessage = new ServiceReplyMessage(ServiceReplyType.RECIPIENTNOTFOUND);
             streamToClient.writeObject(errorMessage);
         }
     }//end private void unicast(BasicMessage message) throws Exception
@@ -269,9 +256,7 @@ public class ClientHandlerDaemon extends Thread {
             System.out.println("Multicast Message forwarded");
         }
         else {
-            //TODO: maybe change to ServiceReplyMessage error
-            TextMessage errorMessage = new TextMessage("Messenger Daemon", this.getName(),
-                    false, LocalDateTime.now(), "Error: group not found!");
+            ServiceReplyMessage errorMessage = new ServiceReplyMessage(ServiceReplyType.RECIPIENTNOTFOUND);
             streamToClient.writeObject(errorMessage);
         }
     }//end private void multicast(BasicMessage message) throws Exception

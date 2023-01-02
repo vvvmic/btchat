@@ -2,5 +2,5 @@
 package com.binarychat.systemMessageTypes;
 
 public enum ServiceReplyType {
-    WRONGMESSAGEFORMAT, ALIASNOTAVIABLE, RECIPIENTNOTFOUND
+    SERVERHANDSHAKENEEDED, INVALIDREQUEST, ALIASNOTAVIABLE, RECIPIENTNOTFOUND
 }//end public enum ServiceReplyType
