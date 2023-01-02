@@ -27,8 +27,6 @@ public class ClientHandlerDaemon extends Thread {
 
     //TODO: bugfix in server crashing after a client disconnect!!!
     //sockets maybe need to be closed?
-    //TODO: groups chatGroups data structure must be synchronized
-    //TODO: allClientHandlerDaemons data structure must be synchronized
     //TODO: implementation of a proper exception handling
 
 

@@ -4,18 +4,15 @@ package com.binarychat.server.datastructures;
 import com.binarychat.server.ClientHandlerDaemon;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GroupContainer {
     // === 0. NOTES ===
-    /* this should be a synchronized datastructure */
-    //TODO: make this datastructure synchronized
-
-
     // === 1. CLASS VARIABLES ===
     // === 2. OBJECT VARIABLES ===
     private String chatGroupName;
-    private List<ClientHandlerDaemon> groupMemberList = new ArrayList<>();
+    private List<ClientHandlerDaemon> groupMemberList = Collections.synchronizedList(new ArrayList<ClientHandlerDaemon>());
 
 
     // === 3. CONSTRUCTORS ===

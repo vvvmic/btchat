@@ -4,6 +4,7 @@ package com.binarychat.server;
 import com.binarychat.server.datastructures.GroupContainer;
 
 import java.net.ServerSocket;
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -21,16 +22,15 @@ public class MessengerServer {
 
     //TODO: bugfix in server crashing after a client disconnect!!!
     //sockets maybe need to be closed?
-    //TODO: groups chatGroups data structure must be synchronized
-    //TODO: allClientHandlerDaemons data structure must be synchronized
     //TODO: implementation of a proper exception handling
+    //TODO: removing closed threads out of allClientHandlerDaemons list
 
 
     // === 1. CLASS VARIABLES ===
     // === 2. OBJECT VARIABLES ===
     private int localPortNumber = 4999;
-    private final List<ClientHandlerDaemon> allClientHandlerDaemons = new ArrayList<>();
-    private final List<GroupContainer> chatGroups = new ArrayList<>();
+    private final List<ClientHandlerDaemon> allClientHandlerDaemons = Collections.synchronizedList(new ArrayList<ClientHandlerDaemon>());
+    private final List<GroupContainer> chatGroups = Collections.synchronizedList(new ArrayList<GroupContainer>());
 
 
     // === 3. CONSTRUCTORS ===
