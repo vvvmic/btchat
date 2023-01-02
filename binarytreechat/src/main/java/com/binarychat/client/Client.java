@@ -83,7 +83,7 @@ public class Client {
     public void logoutfromServer(Client client) throws IOException {
         sendMessageToServer(LoginScreenController.getUsername() + " left the chat-room.");
         //client.getBufferedReader().close();
-        //client.getBufferedWriter().close();
+        //client.getWriterToClient().close();
         client.getSocket().close();
 
     }

@@ -1,36 +1,16 @@
-// Viktor Spudil beta
+// Viktor Spudil
 package com.binarychat.server;
 
-import com.binarychat.server.datastructures.GroupContainer;
-
 import java.net.ServerSocket;
-import java.util.Collections;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class MessengerServer {
     // === 0. NOTES ===
-    /* this is a messaging server which forwards unicast and multicast messages */
-    /* each user can get a member of several group (multicast domains) */
-    /* user are identified over their String alias name */
-    /* groups (multicast domains) are identified over their String alias name */
-    /* When connecting to the server, a handshake like the following example has to be done first!
-    Example:
-    ServiceRequestMessage handshake = new ServiceRequestMessage(this.clientAlias, HANDSHAKE);
-    streamToServer.writeObject(handshake);
-    This is needed, to register the client with his alias at the server */
-
-    //TODO: bugfix in server crashing after a client disconnect!!!
-    //sockets maybe need to be closed?
-    //TODO: implementation of a proper exception handling
-    //TODO: removing closed threads out of allClientHandlerDaemons list
-
-
     // === 1. CLASS VARIABLES ===
     // === 2. OBJECT VARIABLES ===
     private int localPortNumber = 4999;
-    private final List<ClientHandlerDaemon> allClientHandlerDaemons = Collections.synchronizedList(new ArrayList<ClientHandlerDaemon>());
-    private final List<GroupContainer> chatGroups = Collections.synchronizedList(new ArrayList<GroupContainer>());
+    private final Set<ClientHandlerDaemon> allClientHandlerDaemons = new TreeSet<>();
 
 
     // === 3. CONSTRUCTORS ===
@@ -50,7 +30,7 @@ public class MessengerServer {
 
             /* accepting connections to clients and creating a handler-thread for each of them */
             while (!serverSocket.isClosed()) {
-                tempClientHandlerDaemon = new ClientHandlerDaemon(serverSocket.accept(), allClientHandlerDaemons, chatGroups);
+                tempClientHandlerDaemon = new ClientHandlerDaemon(serverSocket.accept(), allClientHandlerDaemons);
                 tempClientHandlerDaemon.setDaemon(true);
                 tempClientHandlerDaemon.start();
                 allClientHandlerDaemons.add(tempClientHandlerDaemon);
@@ -68,4 +48,5 @@ public class MessengerServer {
         serverInstance.startServer();
     }//end public static void main(String[] args)
 }//end public class MessengerServer
+
 
