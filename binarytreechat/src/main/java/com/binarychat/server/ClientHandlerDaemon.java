@@ -127,8 +127,7 @@ public class ClientHandlerDaemon extends Thread {
             if ((message instanceof ServiceRequestMessage) &&
                     (((ServiceRequestMessage) message).getServiceRequest() == HANDSHAKE)) {
                 for (int i = 0; i < allClientHandlerDaemons.size(); i++) {
-                    if (allClientHandlerDaemons.get(i).getName().contains(((ServiceRequestMessage)message).getName())) {
-                        /* contains might be a problem if it contains the substring! (see String class */
+                    if (allClientHandlerDaemons.get(i).getName().equals(((ServiceRequestMessage)message).getName())) {
                         aliasAlreadyExists = true;
                     }
                 }
@@ -154,8 +153,7 @@ public class ClientHandlerDaemon extends Thread {
         boolean aliasAlreadyExists = false;
 
         for (int i = 0; i < allClientHandlerDaemons.size(); i++) {
-            if (allClientHandlerDaemons.get(i).getName().contains(serviceRequestMessage.getName())) {
-                /* contains might be a problem if it contains the substring! (see String class */
+            if (allClientHandlerDaemons.get(i).getName().equals(serviceRequestMessage.getName())) {
                 if (allClientHandlerDaemons.get(i) != this) {
                     aliasAlreadyExists = true;
                 }
@@ -217,8 +215,7 @@ public class ClientHandlerDaemon extends Thread {
 
         /* searching fo the target client */
         for (int i = 0; i < allClientHandlerDaemons.size(); i++) {
-            if (allClientHandlerDaemons.get(i).getName().contains(message.getRecipientAlias())) {
-                /* contains might be a problem if it contains the substring! (see String class */
+            if (allClientHandlerDaemons.get(i).getName().equals(message.getRecipientAlias())) {
                 messageTarget = allClientHandlerDaemons.get(i);
                 break;
             }
@@ -241,8 +238,7 @@ public class ClientHandlerDaemon extends Thread {
 
         /* searching for the target chat group */
         for (int i = 0; i < chatGroups.size(); i++) {
-            if (chatGroups.get(i).getChatGroupName().contains(message.getRecipientAlias())) {
-                /* contains might be a problem if it contains the substring! (see String class */
+            if (chatGroups.get(i).getChatGroupName().equals(message.getRecipientAlias())) {
                 chatGroupContainer = chatGroups.get(i);
             }
             break;
