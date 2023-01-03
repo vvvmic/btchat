@@ -44,6 +44,7 @@ public class MessengerServer {
     public void startServer() {
         System.out.println("---SERVER STARTED---");
 
+        /* (beta) create default chat group */
         GroupContainer defaultChatgroup = new GroupContainer("default");
         allChatGroups.add(defaultChatgroup);
 
@@ -53,6 +54,7 @@ public class MessengerServer {
             ServerSocket serverSocket = new ServerSocket(localPortNumber);
             ClientHandlerDaemon tempClientHandlerDaemon;
 
+            /* print server details */
             InetAddress ip = InetAddress.getLocalHost();
             String hostname = ip.getHostName();
             System.out.println("Your current IP address : " + ip);

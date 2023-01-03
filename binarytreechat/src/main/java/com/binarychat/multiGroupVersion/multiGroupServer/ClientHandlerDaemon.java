@@ -59,6 +59,7 @@ public class ClientHandlerDaemon extends Thread {
     // === 6. MISCELLANEOUS OBJECT METHODS ===
     @Override
     public void run() {
+        /* (beta) enter default chat group */
         enterDefaultChatGroup();
 
         try {
