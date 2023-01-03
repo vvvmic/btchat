@@ -3,8 +3,8 @@ package com.binarychat.multiGroupVersion.multiGroupServer.datastructures;
 
 import com.binarychat.multiGroupVersion.multiGroupServer.ClientHandlerDaemon;
 
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public class GroupContainer {
@@ -12,7 +12,7 @@ public class GroupContainer {
     // === 1. CLASS VARIABLES ===
     // === 2. OBJECT VARIABLES ===
     private String chatGroupName;
-    private List<ClientHandlerDaemon> groupMemberList = Collections.synchronizedList(new ArrayList<ClientHandlerDaemon>());
+    private List<ClientHandlerDaemon> groupMemberList = Collections.synchronizedList(new LinkedList<ClientHandlerDaemon>());
 
 
     // === 3. CONSTRUCTORS ===

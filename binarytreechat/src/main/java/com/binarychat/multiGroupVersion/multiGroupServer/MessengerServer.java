@@ -6,8 +6,8 @@ import com.binarychat.multiGroupVersion.multiGroupServer.datastructures.GroupCon
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.ArrayList;
 
 public class MessengerServer {
     // === 0. NOTES ===
@@ -30,8 +30,8 @@ public class MessengerServer {
     // === 1. CLASS VARIABLES ===
     // === 2. OBJECT VARIABLES ===
     private int localPortNumber = 4999;
-    private final List<ClientHandlerDaemon> allClientHandlerDaemons = Collections.synchronizedList(new ArrayList<ClientHandlerDaemon>());
-    private final List<GroupContainer> chatGroups = Collections.synchronizedList(new ArrayList<GroupContainer>());
+    private final List<ClientHandlerDaemon> allClientHandlerDaemons = Collections.synchronizedList(new LinkedList<ClientHandlerDaemon>());
+    private final List<GroupContainer> chatGroups = Collections.synchronizedList(new LinkedList<GroupContainer>());
 
 
     // === 3. CONSTRUCTORS ===
