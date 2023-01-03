@@ -27,7 +27,7 @@ public class StartApplication extends Application {
 
     public void closeWindow(Stage stage){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Logout");
+        alert.setTitle("Exit");
         alert.setHeaderText("You are about to exit!");
         alert.setContentText("Do you really want to exit?");
 

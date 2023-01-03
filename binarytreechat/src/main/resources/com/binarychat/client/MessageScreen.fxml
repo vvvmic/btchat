@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="720.0" prefWidth="720.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="com.binarychat.client.MessageScreenController">
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="720.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.binarychat.client.MessageScreenController">
 
     <ImageView fitHeight="28.0" fitWidth="231.0" layoutX="56.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="720.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="527.4385986328125" AnchorPane.topAnchor="50.0">
         <Image url="@pictures/Logo2.png" /> </ImageView>
+
+    <MenuBar layoutX="616.0" layoutY="14.0">
+        <menus>
+            <Menu text="Functions">
+                <items>
+                    <MenuItem fx:id="test" text="Open" />
+                    <MenuItem fx:id="test2" text="Save" />
+                    <MenuItem fx:id="test3" text="Exit" />
+                </items>
+            </Menu>
+        </menus>
+    </MenuBar>
 
 
     <!--<ImageView fitHeight="24.0" fitWidth="24.0" layoutX="92.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
