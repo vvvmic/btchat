@@ -60,6 +60,8 @@ public class ClientHandlerDaemon extends Thread {
     // === 6. MISCELLANEOUS OBJECT METHODS ===
     @Override
     public void run() {
+        enterDefaultChatGroup();
+
         try {
             streamToClient = new ObjectOutputStream(clientSocket.getOutputStream());
             streamFromClient = new ObjectInputStream(clientSocket.getInputStream());
@@ -113,6 +115,15 @@ public class ClientHandlerDaemon extends Thread {
             System.out.println("Client " + this.getName() + " disconnected");
         }
     }//end public void run()
+
+    public void enterDefaultChatGroup() {
+        for (int i = 0; i < chatGroups.size(); i++) {
+            if (chatGroups.get(i).getChatGroupName().contains("default")) {
+                chatGroups.get(i).getGroupMemberList().add(this);
+                return;
+            }
+        }
+    }//end public void enterDefaultChatGroup()
 
     private void serverHandshake() throws Exception {
         Object message;
