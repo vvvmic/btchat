@@ -43,10 +43,15 @@ public class MessengerServer {
     public void startServer() {
         System.out.println("---SERVER STARTED---");
 
+        GroupContainer defaultChatgroup = new GroupContainer("default");
+        chatGroups.add(defaultChatgroup);
+
 
         try {
             ServerSocket serverSocket = new ServerSocket(localPortNumber);
             ClientHandlerDaemon tempClientHandlerDaemon;
+
+            System.out.println(serverSocket.getInetAddress().toString());
 
             /* accepting connections to clients and creating a handler-thread for each of them */
             while (!serverSocket.isClosed()) {
