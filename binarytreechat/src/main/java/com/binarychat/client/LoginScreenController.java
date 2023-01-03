@@ -1,7 +1,6 @@
 package com.binarychat.client;
 
 import com.binarychat.IPAddress.checkIPAddress;
-import com.binarychat.IPAddress.checkPort;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +22,7 @@ public class LoginScreenController {
     private TextField ipAddressField;
 
     @FXML
-    private TextField portField;
+    private TextField chatWithField;
 
     @FXML
     private Button connectButton;
@@ -33,7 +32,10 @@ public class LoginScreenController {
 
     private static String username;
     private static String ipAddress;
-    private static int port;
+
+    private static String chatWith ="default";
+
+    private static boolean isBroadcast;
 
     @FXML
     protected void onConnect(ActionEvent event) throws IOException {
@@ -41,7 +43,9 @@ public class LoginScreenController {
 
         username = usernameField.getText();
         ipAddress = ipAddressField.getText();
-        port = Integer.parseInt(portField.getText());
+        if(!chatWithField.getText().isEmpty()){
+            chatWith = chatWithField.getText();
+        }
 
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("MessageScreen.fxml"));
         Parent root = fxmlLoader.load();
@@ -68,17 +72,21 @@ public class LoginScreenController {
 
     public static String getIpAddress(){return ipAddress;}
 
-    public static int getPort(){return port;}
+    public static String getChatWith(){return chatWith;}
 
     @FXML
     protected void setConnectButtonEnable(KeyEvent event) {
-        if(!usernameField.getText().isEmpty() && !portField.getText().isEmpty() && checkIPAddress.validateIP(ipAddressField.getText()) && checkPort.validatePort(Integer.parseInt(portField.getText()))) {
+        if(!usernameField.getText().isEmpty()  && checkIPAddress.validateIP(ipAddressField.getText())) {
             connectButton.setDisable(false);
         }else {
             connectButton.setDisable(true);
         }
 
     }
+
+    public static void setIsBroadcast(boolean broadcast){isBroadcast = broadcast;}
+
+    public static boolean getIsBroadcast(){return isBroadcast;}
 /*
     @FXML
     protected void onUsernameChanged(KeyEvent event) {

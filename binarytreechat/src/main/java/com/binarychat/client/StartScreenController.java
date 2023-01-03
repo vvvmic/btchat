@@ -23,6 +23,7 @@ public class StartScreenController {
     @FXML
     protected void onConnectChatRoom(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("LoginScreen.fxml"));
+        LoginScreenController.setIsBroadcast(true);
         Stage stage = (Stage) chatRoomButton.getScene().getWindow();
         Scene scene = new Scene(fxmlLoader.load(), 720, 720);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
@@ -33,6 +34,7 @@ public class StartScreenController {
     @FXML
     protected void onConnectSingleChat(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("LoginScreen.fxml"));
+        LoginScreenController.setIsBroadcast(false);
         Stage stage = (Stage) singleChatButton.getScene().getWindow();
         Scene scene = new Scene(fxmlLoader.load(), 720, 720);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());

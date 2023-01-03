@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Client_V2 {
 
@@ -17,9 +18,9 @@ public class Client_V2 {
     private ObjectOutputStream streamToServer; //write data to the server
     private List<String> messageList = new ArrayList<String>();
 
-    public Client_V2(Socket socket) {
+    public Client_V2(String ipAddress) {
         try{
-            this.socket = socket;
+            socket = new Socket(ipAddress, 4999);
             streamToServer = new ObjectOutputStream(socket.getOutputStream());
             streamFromServer = new ObjectInputStream(socket.getInputStream());
         }catch(IOException exception){
@@ -47,7 +48,7 @@ public class Client_V2 {
 
     public void sendMessageToServer(String messageToServer) {
         try{
-            TextMessage messagetoSend = new TextMessage(LoginScreenController.getUsername(), "default", true, LocalDateTime.now(), messageToServer); //Username, Target (Group or User), Mutlicast or Broadcast, Timestamp, Message
+            TextMessage messagetoSend = new TextMessage(LoginScreenController.getUsername(), LoginScreenController.getChatWith(), LoginScreenController.getIsBroadcast(), LocalDateTime.now(), messageToServer); //Username, Target (Group or User), Mutlicast or Broadcast, Timestamp, Message
             streamToServer.writeObject(messagetoSend);
             messageList.add(LocalDateTime.now() + " " + LoginScreenController.getUsername()+ ": " + messageToServer);
         }catch(IOException exception){
@@ -71,8 +72,10 @@ public class Client_V2 {
                             String message = ((TextMessage) messageFromServer).getTextMessage();
                             String username = ((TextMessage) messageFromServer).getSenderAlias(); //todo username to message output
                             LocalDateTime timestamp = ((TextMessage) messageFromServer).getCreatedTimeStamp(); //todo timestamp to message output
-                            MessageScreenController.addLabel(username + ": " + message, vBox);
-                            messageList.add(timestamp + " " + username + ": " + message);
+                            if(Objects.equals(username, LoginScreenController.getChatWith())) {
+                                MessageScreenController.addLabel(username + ": " + message, vBox);
+                                messageList.add(timestamp + " " + username + ": " + message);
+                            }
                         }
                     }
                 }catch (Exception exception){

@@ -20,7 +20,7 @@
 
     <TextField fx:id="usernameField" layoutX="200.0" layoutY="342.0" onKeyTyped="#setConnectButtonEnable" prefHeight="35.0" prefWidth="320.0" promptText="Enter your name" />
     <TextField fx:id="ipAddressField" layoutX="200.0" layoutY="402.0" onKeyTyped="#setConnectButtonEnable" prefHeight="35.0" prefWidth="320.0" promptText="Enter your IP-address" />
-    <TextField fx:id="portField" layoutX="200.0" layoutY="462.0" onKeyTyped="#setConnectButtonEnable" prefHeight="35.0" prefWidth="320.0" promptText="Enter your port" />
+    <TextField fx:id="chatWithField" layoutX="200.0" layoutY="462.0" onKeyTyped="#setConnectButtonEnable" prefHeight="35.0" prefWidth="320.0" promptText="Enter Person/ChatRoom" />
     <Button fx:id="connectButton" disable="true" layoutX="300.0" layoutY="522.0" mnemonicParsing="false" onAction="#onConnect" prefHeight="35.0" prefWidth="120.0" text="Connect">
         <cursor>
             <Cursor fx:constant="HAND" />

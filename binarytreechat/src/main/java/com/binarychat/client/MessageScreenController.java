@@ -53,8 +53,7 @@ public class MessageScreenController implements Initializable{
 
     @FXML
     public void onMessage(KeyEvent event) {
-        if(!message.getText().isEmpty())
-            sendButton.setDisable(false);
+        sendButton.setDisable(message.getText().isEmpty());
     }
 
     @FXML
@@ -83,8 +82,8 @@ public class MessageScreenController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            client = new Client_V2(new Socket(LoginScreenController.getIpAddress(), LoginScreenController.getPort()));
-        } catch (IOException exception) {
+            client = new Client_V2(LoginScreenController.getIpAddress());
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
 
@@ -106,7 +105,7 @@ public class MessageScreenController implements Initializable{
                 hbox.setAlignment(Pos.CENTER_RIGHT); //Ausrichtung von Hbox
                 hbox.setPadding(new Insets(10,15,10,5));
 
-                Text text = new Text(LoginScreenController.getUsername() + ": " + messageToSend);
+                Text text = new Text(messageToSend);
                 TextFlow textFlow = new TextFlow(text); //wrapping the text, reach TextField
                 textFlow.setId("textflow");
 
