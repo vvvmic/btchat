@@ -97,6 +97,9 @@ public class ClientHandlerDaemon extends Thread {
                             case CREATEGROUP:
                                 createChatGroup((ServiceRequestMessage) message);
                                 break;
+                            case DELETEGROUP:
+                                deleteChatGroup((ServiceRequestMessage) message);
+                                break;
                             case JOINGROUP:
                                 joinChatGroup((ServiceRequestMessage) message);
                                 break;
@@ -219,6 +222,15 @@ public class ClientHandlerDaemon extends Thread {
             streamToClient.writeObject(errorMessage);
         }
     }//end private void createChatGroup(ServiceRequestMessage serviceRequestMessage) throws Exception
+
+    private void deleteChatGroup(ServiceRequestMessage serviceRequestMessage) throws Exception {
+        for (GroupContainer groupContainer : allChatGroups) {
+            if (groupContainer.getChatGroupName().equals(serviceRequestMessage.getName())) {
+                allChatGroups.remove(groupContainer);
+                break;
+            }
+        }
+    }//end private void deleteChatGroup(ServiceRequestMessage serviceRequestMessage) throws Exception
 
     private void unicast(BasicMessage message) throws Exception {
         ClientHandlerDaemon messageTarget = null;
