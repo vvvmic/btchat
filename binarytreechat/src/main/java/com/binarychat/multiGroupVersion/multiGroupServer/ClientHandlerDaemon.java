@@ -255,7 +255,9 @@ public class ClientHandlerDaemon extends Thread {
         /* sending the message to all user daemons in the chat group */
         if (chatGroupContainer != null) {
             for (int i = 0; i < chatGroupContainer.getGroupMemberList().size(); i++) {
-                chatGroupContainer.getGroupMemberList().get(i).getStreamToClient().writeObject(message);
+                if (chatGroupContainer.getGroupMemberList().get(i) != this) {
+                    chatGroupContainer.getGroupMemberList().get(i).getStreamToClient().writeObject(message);
+                }
             }
             System.out.println("Multicast Message forwarded");
         }
