@@ -24,7 +24,6 @@ public class MessengerServer {
     //TODO: bugfix in server crashing after a client disconnect!!!
     //sockets maybe need to be closed?
     //TODO: implementation of a proper exception handling
-    //TODO: removing closed threads out of allClientHandlerDaemons list
 
 
     // === 1. CLASS VARIABLES ===
@@ -44,6 +43,7 @@ public class MessengerServer {
     public void startServer() {
         System.out.println("---SERVER STARTED---");
 
+        /* (beta) create default chat group */
         GroupContainer defaultChatgroup = new GroupContainer("default");
         allChatGroups.add(defaultChatgroup);
 
@@ -53,6 +53,7 @@ public class MessengerServer {
             ServerSocket serverSocket = new ServerSocket(localPortNumber);
             ClientHandlerDaemon tempClientHandlerDaemon;
 
+            /* print server details */
             InetAddress ip = InetAddress.getLocalHost();
             String hostname = ip.getHostName();
             System.out.println("Your current IP address : " + ip);
