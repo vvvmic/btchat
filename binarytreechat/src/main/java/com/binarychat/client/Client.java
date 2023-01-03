@@ -1,7 +1,5 @@
 package com.binarychat.client;
 
-import com.binarychat.client.controller.LoginScreenController;
-import com.binarychat.client.controller.MessageScreenController;
 import javafx.scene.layout.VBox;
 
 import java.io.*;

@@ -1,8 +1,5 @@
-package com.binarychat.client.controller;
+package com.binarychat.client;
 
-import com.binarychat.client.Client_V2;
-import com.binarychat.client.StartApplication;
-import com.binarychat.client.printMessageList;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

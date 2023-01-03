@@ -1,7 +1,5 @@
 package com.binarychat.client;
 
-import com.binarychat.client.controller.LoginScreenController;
-import com.binarychat.client.controller.MessageScreenController;
 import com.binarychat.multiGroupVersion.systemMessageTypes.ServiceRequestMessage;
 import com.binarychat.multiGroupVersion.systemMessageTypes.ServiceRequestType;
 import com.binarychat.multiGroupVersion.userMessageTypes.TextMessage;
