@@ -1,4 +1,4 @@
-package com.binarychat.client.controller;
+package com.binarychat.client;
 
 import com.binarychat.client.StartApplication;
 import javafx.event.ActionEvent;
