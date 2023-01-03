@@ -116,10 +116,9 @@ public class ClientHandlerDaemon extends Thread {
     }//end public void run()
 
     public void enterDefaultChatGroup() {
-        for (int i = 0; i < allChatGroups.size(); i++) {
-            if (allChatGroups.get(i).getChatGroupName().contains("default")) {
-                allChatGroups.get(i).getGroupMemberList().add(this);
-                return;
+        for (GroupContainer groupContainer : allChatGroups) {
+            if (groupContainer.getChatGroupName().equals("default")) {
+                groupContainer.getGroupMemberList().add(this);
             }
         }
     }//end public void enterDefaultChatGroup()
@@ -133,8 +132,9 @@ public class ClientHandlerDaemon extends Thread {
 
             if ((message instanceof ServiceRequestMessage) &&
                     (((ServiceRequestMessage) message).getServiceRequest() == HANDSHAKE)) {
-                for (int i = 0; i < allClientHandlerDaemons.size(); i++) {
-                    if (allClientHandlerDaemons.get(i).getName().equals(((ServiceRequestMessage)message).getName())) {
+
+                for (ClientHandlerDaemon clientHandlerDaemon : allClientHandlerDaemons) {
+                    if (clientHandlerDaemon.getName().equals(((ServiceRequestMessage) message).getName())) {
                         aliasAlreadyExists = true;
                     }
                 }
@@ -159,9 +159,9 @@ public class ClientHandlerDaemon extends Thread {
     private void setNewAlias(ServiceRequestMessage serviceRequestMessage) throws Exception {
         boolean aliasAlreadyExists = false;
 
-        for (int i = 0; i < allClientHandlerDaemons.size(); i++) {
-            if (allClientHandlerDaemons.get(i).getName().equals(serviceRequestMessage.getName())) {
-                if (allClientHandlerDaemons.get(i) != this) {
+        for (ClientHandlerDaemon clientHandlerDaemon : allClientHandlerDaemons) {
+            if (clientHandlerDaemon.getName().equals(serviceRequestMessage.getName())) {
+                if (clientHandlerDaemon != this) {
                     aliasAlreadyExists = true;
                 }
             }
@@ -177,23 +177,25 @@ public class ClientHandlerDaemon extends Thread {
     }//end private void setNewAlias() throws Exception
 
     private void joinChatGroup(ServiceRequestMessage serviceRequestMessage) throws Exception {
-        for (int i = 0; i < allChatGroups.size(); i++) {
-            if (allChatGroups.get(i).getChatGroupName().contains(serviceRequestMessage.getName())) {
-                allChatGroups.get(i).getGroupMemberList().add(this);
+        for (GroupContainer groupContainer : allChatGroups) {
+            if (groupContainer.getChatGroupName().equals(serviceRequestMessage.getName())) {
+                groupContainer.getGroupMemberList().add(this);
                 return;
             }
         }
+
         ServiceReplyMessage errorMessage = new ServiceReplyMessage(ServiceReplyType.RECIPIENTNOTFOUND);
         streamToClient.writeObject(errorMessage);
     }//end private void joinChatGroup(ServiceRequestMessage serviceRequestMessage) throws Exception
 
     private void exitChatGroup(ServiceRequestMessage serviceRequestMessage) throws Exception {
-        for (int i = 0; i < allChatGroups.size(); i++) {
-            if (allChatGroups.get(i).getChatGroupName().contains(serviceRequestMessage.getName())) {
-                allChatGroups.get(i).getGroupMemberList().remove(i);
+        for (GroupContainer groupContainer : allChatGroups) {
+            if (groupContainer.getChatGroupName().equals(serviceRequestMessage.getName())) {
+                allChatGroups.remove(groupContainer);
                 return;
             }
         }
+
         ServiceReplyMessage errorMessage = new ServiceReplyMessage(ServiceReplyType.INVALIDREQUEST);
         streamToClient.writeObject(errorMessage);
     }//end private void exitChatGroup(ServiceRequestMessage serviceRequestMessage) throws Exception
@@ -201,15 +203,15 @@ public class ClientHandlerDaemon extends Thread {
     private void createChatGroup(ServiceRequestMessage serviceRequestMessage) throws Exception {
         boolean groupAlreadyExists = false;
 
-        for (int i = 0; i < allChatGroups.size(); i++) {
-            if (allChatGroups.get(i).getChatGroupName().contains(serviceRequestMessage.getName())) {
+        for (GroupContainer groupContainer : allChatGroups) {
+            if (groupContainer.getChatGroupName().equals(serviceRequestMessage.getName())) {
                 groupAlreadyExists = true;
                 break;
             }
         }
+
         if (!groupAlreadyExists) {
             allChatGroups.add(new GroupContainer(serviceRequestMessage.getName()));
-            allChatGroups.get(allChatGroups.size() - 1).getGroupMemberList().add(this);
         }
         else {
             ServiceReplyMessage errorMessage = new ServiceReplyMessage(ServiceReplyType.ALIASNOTAVIABLE);
@@ -221,9 +223,9 @@ public class ClientHandlerDaemon extends Thread {
         ClientHandlerDaemon messageTarget = null;
 
         /* searching fo the target client */
-        for (int i = 0; i < allClientHandlerDaemons.size(); i++) {
-            if (allClientHandlerDaemons.get(i).getName().equals(message.getRecipientAlias())) {
-                messageTarget = allClientHandlerDaemons.get(i);
+        for (ClientHandlerDaemon clientHandlerDaemon : allClientHandlerDaemons) {
+            if (clientHandlerDaemon.getName().equals((message.getRecipientAlias()))) {
+                messageTarget = clientHandlerDaemon;
                 break;
             }
         }
@@ -240,24 +242,25 @@ public class ClientHandlerDaemon extends Thread {
     }//end private void unicast(BasicMessage message) throws Exception
 
     private void multicast(BasicMessage message) throws Exception {
-        GroupContainer chatGroupContainer = null;
+        GroupContainer targetChatGroup = null;
 
 
         /* searching for the target chat group */
-        for (GroupContainer chatGroupElement : allChatGroups) {
-            if (chatGroupElement.getChatGroupName().equals(message.getRecipientAlias())) {
-                chatGroupContainer = chatGroupElement;
+        for (GroupContainer groupContainer : allChatGroups) {
+            if (groupContainer.getChatGroupName().equals(message.getRecipientAlias())) {
+                targetChatGroup = groupContainer;
                 break;
             }
         }
 
         /* sending the message to all user daemons in the chat group */
-        if (chatGroupContainer != null) {
-            for (int i = 0; i < chatGroupContainer.getGroupMemberList().size(); i++) {
-                if (chatGroupContainer.getGroupMemberList().get(i) != this) {
-                    chatGroupContainer.getGroupMemberList().get(i).getStreamToClient().writeObject(message);
+        if (targetChatGroup != null) {
+            for (ClientHandlerDaemon clientHandlerDaemon : targetChatGroup.getGroupMemberList()) {
+                if (clientHandlerDaemon != this) {
+                    clientHandlerDaemon.getStreamToClient().writeObject(message);
                 }
             }
+
             System.out.println("Multicast Message forwarded");
         }
         else {
