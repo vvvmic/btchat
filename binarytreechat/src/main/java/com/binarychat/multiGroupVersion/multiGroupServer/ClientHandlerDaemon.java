@@ -32,7 +32,7 @@ public class ClientHandlerDaemon extends Thread {
     // === 2. OBJECT VARIABLES ===
     private final Socket clientSocket;
     private final List<ClientHandlerDaemon> allClientHandlerDaemons;
-    private final List<GroupContainer> chatGroups;
+    private final List<GroupContainer> allChatGroups;
     private ObjectOutputStream streamToClient = null;
     private ObjectInputStream streamFromClient = null;
     private boolean messengerServiceEnabled = false;
@@ -42,11 +42,11 @@ public class ClientHandlerDaemon extends Thread {
     // --- 3.1 STATIC BLOCKS ---
     // --- 3.2 INSTANCE INITIALIZER ---
     // --- 3.3 REAL CONSTRUCTORS ---
-    public ClientHandlerDaemon(Socket clientSocket, List<ClientHandlerDaemon> allClientHandlerDaemons, List<GroupContainer> chatGroups) {
+    public ClientHandlerDaemon(Socket clientSocket, List<ClientHandlerDaemon> allClientHandlerDaemons, List<GroupContainer> allChatGroups) {
         this.clientSocket = clientSocket;
         this.allClientHandlerDaemons = allClientHandlerDaemons;
-        this.chatGroups = chatGroups;
-    }//end public ClientHandlerDaemon(Socket clientSocket, List<Thread> allClientHandlerDaemons)
+        this.allChatGroups = allChatGroups;
+    }//end public ClientHandlerDaemon(Socket clientSocket, List<ClientHandlerDaemon> allClientHandlerDaemons, List<GroupContainer> allChatGroups)
 
 
     // === 4. STATIC METHODS ===
@@ -107,18 +107,18 @@ public class ClientHandlerDaemon extends Thread {
                 }
             }
 
-            clientSocket.close();
+            closeEverything();
             System.out.println("Client " + this.getName() + " disconnected");
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Client " + this.getName() + " disconnected");
+            closeEverything();
         }
     }//end public void run()
 
     public void enterDefaultChatGroup() {
-        for (int i = 0; i < chatGroups.size(); i++) {
-            if (chatGroups.get(i).getChatGroupName().contains("default")) {
-                chatGroups.get(i).getGroupMemberList().add(this);
+        for (int i = 0; i < allChatGroups.size(); i++) {
+            if (allChatGroups.get(i).getChatGroupName().contains("default")) {
+                allChatGroups.get(i).getGroupMemberList().add(this);
                 return;
             }
         }
@@ -177,9 +177,9 @@ public class ClientHandlerDaemon extends Thread {
     }//end private void setNewAlias() throws Exception
 
     private void joinChatGroup(ServiceRequestMessage serviceRequestMessage) throws Exception {
-        for (int i = 0; i < chatGroups.size(); i++) {
-            if (chatGroups.get(i).getChatGroupName().contains(serviceRequestMessage.getName())) {
-                chatGroups.get(i).getGroupMemberList().add(this);
+        for (int i = 0; i < allChatGroups.size(); i++) {
+            if (allChatGroups.get(i).getChatGroupName().contains(serviceRequestMessage.getName())) {
+                allChatGroups.get(i).getGroupMemberList().add(this);
                 return;
             }
         }
@@ -188,9 +188,9 @@ public class ClientHandlerDaemon extends Thread {
     }//end private void joinChatGroup(ServiceRequestMessage serviceRequestMessage) throws Exception
 
     private void exitChatGroup(ServiceRequestMessage serviceRequestMessage) throws Exception {
-        for (int i = 0; i < chatGroups.size(); i++) {
-            if (chatGroups.get(i).getChatGroupName().contains(serviceRequestMessage.getName())) {
-                chatGroups.get(i).getGroupMemberList().remove(i);
+        for (int i = 0; i < allChatGroups.size(); i++) {
+            if (allChatGroups.get(i).getChatGroupName().contains(serviceRequestMessage.getName())) {
+                allChatGroups.get(i).getGroupMemberList().remove(i);
                 return;
             }
         }
@@ -201,15 +201,15 @@ public class ClientHandlerDaemon extends Thread {
     private void createChatGroup(ServiceRequestMessage serviceRequestMessage) throws Exception {
         boolean groupAlreadyExists = false;
 
-        for (int i = 0; i < chatGroups.size(); i++) {
-            if (chatGroups.get(i).getChatGroupName().contains(serviceRequestMessage.getName())) {
+        for (int i = 0; i < allChatGroups.size(); i++) {
+            if (allChatGroups.get(i).getChatGroupName().contains(serviceRequestMessage.getName())) {
                 groupAlreadyExists = true;
                 break;
             }
         }
         if (!groupAlreadyExists) {
-            chatGroups.add(new GroupContainer(serviceRequestMessage.getName()));
-            chatGroups.get(chatGroups.size() - 1).getGroupMemberList().add(this);
+            allChatGroups.add(new GroupContainer(serviceRequestMessage.getName()));
+            allChatGroups.get(allChatGroups.size() - 1).getGroupMemberList().add(this);
         }
         else {
             ServiceReplyMessage errorMessage = new ServiceReplyMessage(ServiceReplyType.ALIASNOTAVIABLE);
@@ -244,11 +244,11 @@ public class ClientHandlerDaemon extends Thread {
 
 
         /* searching for the target chat group */
-        for (int i = 0; i < chatGroups.size(); i++) {
-            if (chatGroups.get(i).getChatGroupName().equals(message.getRecipientAlias())) {
-                chatGroupContainer = chatGroups.get(i);
+        for (GroupContainer chatGroupElement : allChatGroups) {
+            if (chatGroupElement.getChatGroupName().equals(message.getRecipientAlias())) {
+                chatGroupContainer = chatGroupElement;
+                break;
             }
-            break;
         }
 
         /* sending the message to all user daemons in the chat group */
@@ -266,16 +266,22 @@ public class ClientHandlerDaemon extends Thread {
         }
     }//end private void multicast(BasicMessage message) throws Exception
 
-    public void closeEverything(Socket clientSocket, ObjectOutputStream streamToClient, ObjectOutputStream streamFromClient) {
+    public void closeEverything() {
         try {
-            if (streamToClient != null) {
-                streamToClient.close();
+            if (this.streamToClient != null) {
+                this.streamToClient.close();
             }
-            if (streamFromClient != null) {
-                streamFromClient.close();
+            if (this.streamFromClient != null) {
+                this.streamFromClient.close();
             }
-            if (clientSocket != null) {
-                clientSocket.close();
+            if (this.clientSocket != null) {
+                this.clientSocket.close();
+            }
+
+            this.allClientHandlerDaemons.remove(this);
+
+            for (GroupContainer groupContainer : allChatGroups) {
+                groupContainer.getGroupMemberList().remove(this);
             }
         } catch (IOException e){
             e.printStackTrace();
