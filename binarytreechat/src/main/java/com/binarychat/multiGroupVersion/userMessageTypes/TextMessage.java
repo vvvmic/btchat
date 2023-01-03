@@ -14,11 +14,11 @@ public class TextMessage extends BasicMessage {
     // --- 3.1 STATIC BLOCKS ---
     // --- 3.2 INSTANCE INITIALIZER ---
     // --- 3.3 REAL CONSTRUCTORS ---
-    public TextMessage(String senderAlias, String recipientAlias, boolean isBroadcast,
+    public TextMessage(String senderAlias, String recipientAlias, boolean isMulticastMessage,
                        LocalDateTime createdTimeStamp, String textMessage) {
-        super(senderAlias, recipientAlias, isBroadcast, createdTimeStamp);
+        super(senderAlias, recipientAlias, isMulticastMessage, createdTimeStamp);
         this.textMessage = textMessage;
-    }//end public TextMessage(String sender, String recipient, LocalDateTime createdTimeStamp, String textMessage)
+    }//end public TextMessage(String senderAlias, String recipientAlias, boolean isMulticastMessage, LocalDateTime createdTimeStamp, String textMessage)
 
 
     // === 4. STATIC METHODS ===
