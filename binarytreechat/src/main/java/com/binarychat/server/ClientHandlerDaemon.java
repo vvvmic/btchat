@@ -86,8 +86,6 @@ public class ClientHandlerDaemon extends Thread {
                 clientSocket.close();
             }
         } catch (IOException e){
-            closeEverything(this.clientSocket, this.readerFromClient, this.writerToClient);
-            allClientHandlerDaemons.remove(this);
             e.printStackTrace();
             }
     }//end public void closeEverything(Socket clientSocket, BufferedReader readerFromClient, BufferedWriter writerToClient)

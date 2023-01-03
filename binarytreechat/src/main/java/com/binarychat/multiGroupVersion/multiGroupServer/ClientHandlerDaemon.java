@@ -5,8 +5,7 @@ import com.binarychat.multiGroupVersion.multiGroupServer.datastructures.GroupCon
 import com.binarychat.multiGroupVersion.systemMessageTypes.*;
 import com.binarychat.multiGroupVersion.userMessageTypes.*;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.util.List;
 
@@ -266,6 +265,22 @@ public class ClientHandlerDaemon extends Thread {
             streamToClient.writeObject(errorMessage);
         }
     }//end private void multicast(BasicMessage message) throws Exception
+
+    public void closeEverything(Socket clientSocket, ObjectOutputStream streamToClient, ObjectOutputStream streamFromClient) {
+        try {
+            if (streamToClient != null) {
+                streamToClient.close();
+            }
+            if (streamFromClient != null) {
+                streamFromClient.close();
+            }
+            if (clientSocket != null) {
+                clientSocket.close();
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }//end public void closeEverything(Socket clientSocket, ObjectOutputStream streamToClient, ObjectOutputStream streamFromClient)
 
 
     // === 7. MAIN ===
