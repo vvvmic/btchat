@@ -1,5 +1,8 @@
-package com.binarychat.client;
+package com.binarychat.client.controller;
 
+import com.binarychat.client.Client_V2;
+import com.binarychat.client.StartApplication;
+import com.binarychat.client.printMessageList;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -13,7 +16,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -47,7 +49,7 @@ public class MessageScreenController implements Initializable{
     @FXML
     private Text usernameField;
 
-    private Client client;
+    private Client_V2 client;
 
 
 
@@ -84,7 +86,7 @@ public class MessageScreenController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            client = new Client(new Socket(LoginScreenController.getIpAddress(), LoginScreenController.getPort()));
+            client = new Client_V2(new Socket(LoginScreenController.getIpAddress(), LoginScreenController.getPort()));
         } catch (IOException exception) {
             exception.printStackTrace();
         }
@@ -107,7 +109,7 @@ public class MessageScreenController implements Initializable{
                 hbox.setAlignment(Pos.CENTER_RIGHT); //Ausrichtung von Hbox
                 hbox.setPadding(new Insets(10,15,10,5));
 
-                Text text = new Text(messageToSend);
+                Text text = new Text(LoginScreenController.getUsername() + ": " + messageToSend);
                 TextFlow textFlow = new TextFlow(text); //wrapping the text, reach TextField
                 textFlow.setId("textflow");
 

@@ -1,7 +1,8 @@
-package com.binarychat.client;
+package com.binarychat.client.controller;
 
 import com.binarychat.IPAddress.checkIPAddress;
 import com.binarychat.IPAddress.checkPort;
+import com.binarychat.client.StartApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

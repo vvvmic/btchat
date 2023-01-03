@@ -3,6 +3,7 @@ package com.binarychat.multiGroupVersion.multiGroupServer;
 
 import com.binarychat.multiGroupVersion.multiGroupServer.datastructures.GroupContainer;
 
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.util.Collections;
 import java.util.List;
@@ -47,11 +48,16 @@ public class MessengerServer {
         chatGroups.add(defaultChatgroup);
 
 
+
         try {
             ServerSocket serverSocket = new ServerSocket(localPortNumber);
             ClientHandlerDaemon tempClientHandlerDaemon;
 
-            System.out.println(serverSocket.getInetAddress().toString());
+            InetAddress ip = InetAddress.getLocalHost();
+            String hostname = ip.getHostName();
+            System.out.println("Your current IP address : " + ip);
+            System.out.println("Your current Hostname : " + hostname);
+
 
             /* accepting connections to clients and creating a handler-thread for each of them */
             while (!serverSocket.isClosed()) {
