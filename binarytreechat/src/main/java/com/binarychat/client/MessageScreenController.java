@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
@@ -38,18 +39,12 @@ public class MessageScreenController implements Initializable{
     private Button sendButton;
 
     @FXML
-    private Button logoutButton;
-
-    @FXML
-    private Button saveTextFile;
-
-    @FXML
     private Text usernameField;
 
     private Client_V2 client;
 
-
-
+    @FXML
+    private Parent root;
 
     @FXML
     public void onMessage(KeyEvent event) {
@@ -66,11 +61,11 @@ public class MessageScreenController implements Initializable{
 
         if(alert.showAndWait().get() == ButtonType.OK){
         FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("LoginScreen.fxml"));
-        Stage stage = (Stage) logoutButton.getScene().getWindow();
+        Stage stage = (Stage) root.getScene().getWindow();
         Scene scene = new Scene(fxmlLoader.load(), 720, 720);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("BinaryChat");
-        client.logoutfromServer(this.client);
+//        client.logoutfromServer(this.client);
         stage.setScene(scene);}
     }
 
@@ -120,7 +115,6 @@ public class MessageScreenController implements Initializable{
                 message.clear();
             }
         });
-
     }
 
     public static void addLabel(String messageFromServer, VBox vBox){ //GUI for receiving of userMessageTypes
