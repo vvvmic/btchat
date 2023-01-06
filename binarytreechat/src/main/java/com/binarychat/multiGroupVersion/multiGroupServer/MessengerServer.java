@@ -1,4 +1,3 @@
-// Viktor Spudil beta
 package com.binarychat.multiGroupVersion.multiGroupServer;
 
 import com.binarychat.multiGroupVersion.multiGroupServer.datastructures.GroupContainer;
@@ -12,8 +11,8 @@ import java.util.List;
 public class MessengerServer {
     // === 0. NOTES ===
     /* this is a messaging server which forwards unicast and multicast messages */
-    /* each user can get a member of several group (multicast domains) */
-    /* user are identified over their String alias name */
+    /* each user can get a member of several groups (multicast domains) */
+    /* user are identified over their String alias names */
     /* groups (multicast domains) are identified over their String alias name */
     /* When connecting to the server, a handshake like the following example has to be done first!
     Example:
