@@ -1,4 +1,3 @@
-// Viktor Spudil beta
 package com.binarychat.multiGroupVersion.systemMessageTypes;
 
 import java.io.Serializable;

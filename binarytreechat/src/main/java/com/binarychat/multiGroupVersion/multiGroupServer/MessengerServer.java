@@ -1,4 +1,3 @@
-// Viktor Spudil beta
 package com.binarychat.multiGroupVersion.multiGroupServer;
 
 import com.binarychat.multiGroupVersion.multiGroupServer.datastructures.GroupContainer;
