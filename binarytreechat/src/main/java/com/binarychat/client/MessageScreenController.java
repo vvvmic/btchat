@@ -13,6 +13,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -65,6 +66,8 @@ public class MessageScreenController implements Initializable{
         Scene scene = new Scene(fxmlLoader.load(), 720, 720);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("BinaryChat");
+        Image image = new Image("com/binarychat/client/pictures/Icon.png");
+        stage.getIcons().add(image);
 //        client.logoutfromServer(this.client);
         stage.setScene(scene);}
     }

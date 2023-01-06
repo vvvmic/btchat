@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -52,8 +53,11 @@ public class LoginScreenController {
         MessageScreenController messageScreenController = fxmlLoader.getController();
         messageScreenController.setUsernameField(this.username);
         Scene scene = new Scene(root, 720, 720);
+
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("BinaryChat");
+        Image image = new Image("com/binarychat/client/pictures/Icon.png");
+        stage.getIcons().add(image);
         stage.setScene(scene);
     }
 
