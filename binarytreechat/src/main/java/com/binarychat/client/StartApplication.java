@@ -9,6 +9,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class StartApplication extends Application {
     @Override
@@ -17,8 +18,7 @@ public class StartApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 720, 720);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("BinaryChat");
-        Image image = new Image("com/binarychat/client/pictures/Icon.png");
-        stage.getIcons().add(image);
+        stage.getIcons().add(new Image("file:icon.png"));
         stage.setScene(scene);
         stage.show();
 

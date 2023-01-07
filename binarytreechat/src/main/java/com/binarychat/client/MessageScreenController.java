@@ -65,8 +65,7 @@ public class MessageScreenController implements Initializable{
         Scene scene = new Scene(fxmlLoader.load(), 720, 720);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("BinaryChat");
-        Image image = new Image("com/binarychat/client/pictures/Icon.png");
-        stage.getIcons().add(image);
+        stage.getIcons().add(new Image("file:icon.png"));
 //        client.logoutfromServer(this.client);
         stage.setScene(scene);}
     }
