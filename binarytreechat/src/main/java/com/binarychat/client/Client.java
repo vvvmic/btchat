@@ -1,42 +1,42 @@
 package com.binarychat.client;
 
+import com.binarychat.multiGroupVersion.systemMessageTypes.ServiceRequestMessage;
+import com.binarychat.multiGroupVersion.systemMessageTypes.ServiceRequestType;
+import com.binarychat.multiGroupVersion.userMessageTypes.TextMessage;
 import javafx.scene.layout.VBox;
-
 import java.io.*;
 import java.net.Socket;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Client {
-    // TODO: 26.12.2022 In and Output userMessageTypes
-
 
     private Socket socket; //listen for incoming connections
-    private BufferedReader bufferedReader; //read data from the server
-    private BufferedWriter bufferedWriter; //write data to the server
+    private ObjectInputStream streamFromServer; //read data from the server
+    private ObjectOutputStream streamToServer; //write data to the server
     private List<String> messageList = new ArrayList<String>();
 
-    public Client(Socket socket) {
+    public Client(String ipAddress) {
         try{
-            this.socket = socket;
-            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
-            printWriter.println(LoginScreenController.getUsername()+ ": has joined chat-room.");
+            socket = new Socket(ipAddress, 4999);
+            streamToServer = new ObjectOutputStream(socket.getOutputStream());
+            streamFromServer = new ObjectInputStream(socket.getInputStream());
         }catch(IOException exception){
             System.out.println("Error creating Client!");
             exception.printStackTrace();
-            closeEverything(socket, bufferedReader, bufferedWriter);
+            closeEverything(socket, streamFromServer, streamToServer);
         }
     }
 
-    public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter){
+    public void closeEverything(Socket socket, ObjectInputStream streamFromServer, ObjectOutputStream streamToServer){
         try{
-            if (bufferedReader != null) {
-                bufferedReader.close();
+            if (streamFromServer != null) {
+                streamFromServer.close();
             }
-            if (bufferedWriter != null) {
-                bufferedWriter.close();
+            if (streamToServer != null) {
+                streamToServer.close();
             }
             if (socket != null) {
                 socket.close();
@@ -46,17 +46,15 @@ public class Client {
         }
     }
 
-
     public void sendMessageToServer(String messageToServer) {
         try{
-            bufferedWriter.write(LoginScreenController.getUsername()+ ": " + messageToServer);
-            bufferedWriter.newLine(); //it is only sent when buffer is full
-            bufferedWriter.flush(); //doing it manually
-            messageList.add(LoginScreenController.getUsername()+ ": " + messageToServer);
+            TextMessage messagetoSend = new TextMessage(LoginScreenController.getUsername(), LoginScreenController.getChatWith(), LoginScreenController.getIsBroadcast(), LocalDateTime.now(), messageToServer); //Username, Target (Group or User), Mutlicast or Broadcast, Timestamp, Message
+            streamToServer.writeObject(messagetoSend);
+            messageList.add(LocalDateTime.now() + " " + LoginScreenController.getUsername()+ ": " + messageToServer);
         }catch(IOException exception){
             exception.printStackTrace();
             System.out.println("Error sending message to the Server!");
-            closeEverything(socket, bufferedReader, bufferedWriter);
+            closeEverything(socket, streamFromServer, streamToServer);
         }
     }
 
@@ -64,17 +62,26 @@ public class Client {
         new Thread(new Runnable() {
             @Override
             public void run() { //listen for userMessageTypes while the client is still connected
-                while(socket.isConnected()){
-                    try{
-                        String messageFromServer = bufferedReader.readLine();
-                        MessageScreenController.addLabel(messageFromServer, vBox);
-                        messageList.add(messageFromServer);
-                    }catch (IOException exception){
+                Object messageFromServer;
+                ServiceRequestMessage serviceRequestMessage = new ServiceRequestMessage(LoginScreenController.getUsername(), ServiceRequestType.HANDSHAKE);
+                try{
+                    streamToServer.writeObject(serviceRequestMessage);
+                    while(socket.isConnected()) {
+                        messageFromServer = streamFromServer.readObject();
+                        if (messageFromServer instanceof TextMessage) {
+                            String message = ((TextMessage) messageFromServer).getTextMessage();
+                            String username = ((TextMessage) messageFromServer).getSenderAlias(); //todo username to message output
+                            LocalDateTime timestamp = ((TextMessage) messageFromServer).getCreatedTimeStamp(); //todo timestamp to message output
+                            if(Objects.equals(username, LoginScreenController.getChatWith())) {
+                                MessageScreenController.addLabel(username + ": " + message, vBox);
+                                messageList.add(timestamp + " " + username + ": " + message);
+                            }
+                        }
+                    }
+                }catch (Exception exception){
                         exception.printStackTrace();
                         System.out.println("Error receiving message from the Server!");
-                        closeEverything(socket, bufferedReader, bufferedWriter);
-                        break;
-                    }
+                        closeEverything(socket, streamFromServer, streamToServer);
                 }
             }
         }).start();
@@ -82,22 +89,11 @@ public class Client {
 
     public void logoutfromServer(Client client) throws IOException {
         sendMessageToServer(LoginScreenController.getUsername() + " left the chat-room.");
-        //client.getBufferedReader().close();
-        //client.getWriterToClient().close();
         client.getSocket().close();
-
     }
 
     public Socket getSocket() {
         return socket;
-    }
-
-    public BufferedReader getBufferedReader() {
-        return bufferedReader;
-    }
-
-    public BufferedWriter getBufferedWriter() {
-        return bufferedWriter;
     }
 
     public List<String> getMessageList(){ return messageList; }

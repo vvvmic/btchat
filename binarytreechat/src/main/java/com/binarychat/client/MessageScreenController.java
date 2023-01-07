@@ -21,7 +21,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -42,7 +41,7 @@ public class MessageScreenController implements Initializable{
     @FXML
     private Text usernameField;
 
-    private Client_V2 client;
+    private Client client;
 
     @FXML
     private Parent root;
@@ -80,7 +79,7 @@ public class MessageScreenController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            client = new Client_V2(LoginScreenController.getIpAddress());
+            client = new Client(LoginScreenController.getIpAddress());
         } catch (Exception exception) {
             exception.printStackTrace();
         }
