@@ -6,7 +6,9 @@ import java.io.*;
 import java.util.List;
 
 public class printMessageList {
-
+    /*
+    Prints the passed string list to a text file at a location of choice
+     */
     public static void printMessageList(List<String> messageList) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save");

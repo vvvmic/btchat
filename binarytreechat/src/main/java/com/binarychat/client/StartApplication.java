@@ -5,11 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.util.Objects;
 
 public class StartApplication extends Application {
     @Override
@@ -28,7 +26,7 @@ public class StartApplication extends Application {
         });
     }
 
-    public void closeWindow(Stage stage){
+    public void closeWindow(Stage stage){ //pop up window appears when the application is to be closed
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Exit");
         alert.setHeaderText("You are about to exit!");

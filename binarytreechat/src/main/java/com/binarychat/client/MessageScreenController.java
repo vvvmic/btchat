@@ -54,7 +54,7 @@ public class MessageScreenController implements Initializable{
     @FXML
     protected void onLogout(ActionEvent event) throws IOException {
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);//pop up window appears when the logout button is selected
         alert.setTitle("Logout");
         alert.setHeaderText("You are about to log out!");
         alert.setContentText("Do you really want to log out?");
@@ -66,7 +66,7 @@ public class MessageScreenController implements Initializable{
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("BinaryChat");
         stage.getIcons().add(new Image("file:icon.png"));
-//        client.logoutfromServer(this.client);
+        client.logoutfromServer(this.client);
         stage.setScene(scene);}
     }
 
@@ -146,5 +146,4 @@ public class MessageScreenController implements Initializable{
     public void setUsernameField(String usernameField) {
         this.usernameField.setText(usernameField);
     }
-
 }

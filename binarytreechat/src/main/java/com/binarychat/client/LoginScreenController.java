@@ -13,7 +13,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
 
-
 public class LoginScreenController {
 
     @FXML
@@ -90,25 +89,4 @@ public class LoginScreenController {
     public static void setIsBroadcast(boolean broadcast){isBroadcast = broadcast;}
 
     public static boolean getIsBroadcast(){return isBroadcast;}
-/*
-    @FXML
-    protected void onUsernameChanged(KeyEvent event) {
-        if(!usernameField.getText().isEmpty() && !ipAddressField.getText().isEmpty() && !portField.getText().isEmpty())
-            connectButton.setDisable(false);
-    }
-
-    @FXML
-    protected void onIpAddressChanged(KeyEvent event) {
-        if(!usernameField.getText().isEmpty() && !portField.getText().isEmpty() && checkIPAddress.validateIP(ipAddressField.getText()))
-            connectButton.setDisable(false);
-    }
-
-    @FXML
-    protected void onPortChanged(KeyEvent event) {
-        if(!usernameField.getText().isEmpty() && !ipAddressField.getText().isEmpty() && checkPort.validatePort(Integer.parseInt(portField.getText())))
-            connectButton.setDisable(false);
-    }
-
- */
-
 }
