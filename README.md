@@ -11,7 +11,7 @@
 4. **HowTo Use**:
 
     - Clone the repo: https://github.com/vvvmic/btchat
-    - Open MessengerServer to start the Server
+    - Open MessengerServer & Run to start the Server
     - Open StartApplication & Run
       - Choose if you want to chat with a person (Single Chat) or with a group (Chat Room)
       - Enter custom Name & printed IP Address from Server & person / group you want chat with
