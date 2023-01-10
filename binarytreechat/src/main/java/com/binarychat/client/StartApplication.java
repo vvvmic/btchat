@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.DialogPane;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -16,6 +16,7 @@ public class StartApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 720, 720);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("BinaryChat");
+        stage.getIcons().add(new Image("file:icon.png"));
         stage.setScene(scene);
         stage.show();
 
@@ -25,7 +26,7 @@ public class StartApplication extends Application {
         });
     }
 
-    public void closeWindow(Stage stage){
+    public void closeWindow(Stage stage){ //pop up window appears when the application is to be closed
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Exit");
         alert.setHeaderText("You are about to exit!");

@@ -10,8 +10,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -19,7 +21,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -38,18 +39,12 @@ public class MessageScreenController implements Initializable{
     private Button sendButton;
 
     @FXML
-    private Button logoutButton;
-
-    @FXML
-    private Button saveTextFile;
-
-    @FXML
     private Text usernameField;
 
-    private Client_V2 client;
+    private Client client;
 
-
-
+    @FXML
+    private Parent root;
 
     @FXML
     public void onMessage(KeyEvent event) {
@@ -59,17 +54,18 @@ public class MessageScreenController implements Initializable{
     @FXML
     protected void onLogout(ActionEvent event) throws IOException {
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);//pop up window appears when the logout button is selected
         alert.setTitle("Logout");
         alert.setHeaderText("You are about to log out!");
         alert.setContentText("Do you really want to log out?");
 
         if(alert.showAndWait().get() == ButtonType.OK){
         FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("LoginScreen.fxml"));
-        Stage stage = (Stage) logoutButton.getScene().getWindow();
+        Stage stage = (Stage) root.getScene().getWindow();
         Scene scene = new Scene(fxmlLoader.load(), 720, 720);
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("BinaryChat");
+        stage.getIcons().add(new Image("file:icon.png"));
         client.logoutfromServer(this.client);
         stage.setScene(scene);}
     }
@@ -82,7 +78,7 @@ public class MessageScreenController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            client = new Client_V2(LoginScreenController.getIpAddress());
+            client = new Client(LoginScreenController.getIpAddress());
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -120,7 +116,6 @@ public class MessageScreenController implements Initializable{
                 message.clear();
             }
         });
-
     }
 
     public static void addLabel(String messageFromServer, VBox vBox){ //GUI for receiving of userMessageTypes
@@ -151,5 +146,4 @@ public class MessageScreenController implements Initializable{
     public void setUsernameField(String usernameField) {
         this.usernameField.setText(usernameField);
     }
-
 }

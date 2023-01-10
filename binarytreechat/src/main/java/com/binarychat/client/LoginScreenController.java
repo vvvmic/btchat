@@ -8,10 +8,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import java.io.IOException;
-
 
 public class LoginScreenController {
 
@@ -52,8 +52,10 @@ public class LoginScreenController {
         MessageScreenController messageScreenController = fxmlLoader.getController();
         messageScreenController.setUsernameField(this.username);
         Scene scene = new Scene(root, 720, 720);
+
         scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         stage.setTitle("BinaryChat");
+        stage.getIcons().add(new Image("file:icon.png"));
         stage.setScene(scene);
     }
 
@@ -87,25 +89,4 @@ public class LoginScreenController {
     public static void setIsBroadcast(boolean broadcast){isBroadcast = broadcast;}
 
     public static boolean getIsBroadcast(){return isBroadcast;}
-/*
-    @FXML
-    protected void onUsernameChanged(KeyEvent event) {
-        if(!usernameField.getText().isEmpty() && !ipAddressField.getText().isEmpty() && !portField.getText().isEmpty())
-            connectButton.setDisable(false);
-    }
-
-    @FXML
-    protected void onIpAddressChanged(KeyEvent event) {
-        if(!usernameField.getText().isEmpty() && !portField.getText().isEmpty() && checkIPAddress.validateIP(ipAddressField.getText()))
-            connectButton.setDisable(false);
-    }
-
-    @FXML
-    protected void onPortChanged(KeyEvent event) {
-        if(!usernameField.getText().isEmpty() && !ipAddressField.getText().isEmpty() && checkPort.validatePort(Integer.parseInt(portField.getText())))
-            connectButton.setDisable(false);
-    }
-
- */
-
 }
