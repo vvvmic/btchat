@@ -1,0 +1,136 @@
+#helloText {
+    -fx-font-size: 24;
+    -fx-font-family: "Proxima Nova";
+}
+
+.text-field {
+    -fx-font-size: 18;
+    -fx-background-radius: 25;
+    -fx-background-color: #FFFFFF
+}
+
+.button {
+    -fx-font-size: 18;
+    -fx-background-color: #27AE60;
+    -fx-background-radius: 25;
+    -fx-text-fill: #FFFFFF;
+}
+
+.text-area {
+    -fx-font-size: 14;
+    -fx-background-color: #FFFFFF;
+}
+
+.text-area .content {
+    -fx-font-size: 14;
+    -fx-background-color: #FFFFFF;
+}
+
+#message {
+    -fx-font-size: 18;
+}
+
+#textflow > Text {
+    -fx-fill: white;
+    -fx-font-size: 15;
+}
+
+#textflow2 > Text {
+    -fx-font-size: 15;
+}
+
+#vBox {
+    -fx-background-radius: 25;
+    -fx-padding: 10 5 10 5;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+}
+
+.scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+    -fx-border-radius: 3;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: derive(black, 90%);
+    -fx-background-insets: 0.5, 0, 0;
+    -fx-background-radius: 2;
+}
+
+.scroll-pane .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0em;
+    -fx-padding: 0 0 10 0;
+}
+
+.scroll-pane .scroll-bar:vertical .increment-arrow,
+.scroll-pane .scroll-bar:vertical .decrement-arrow {
+    -fx-padding: -1;
+}
+
+.saveIcon > .label{
+    -fx-graphic: url("px16/save.png");
+}
+
+.menu{
+        -fx-background-color: #27AE60;
+        -fx-background-radius: 25;
+        -fx-text-fill: #FFFFFF;
+        -fx-font-size:16;
+     }
+
+.menu .label{
+            -fx-text-fill: #FFFFFF;
+        }
+
+.menu-bar{
+        -fx-background-color: rgba(0,0,0,0);
+        -fx-text-fill: #FFFFFF;
+        -fx-font-size:16;
+     }
+
+.menu-item .label {
+        -fx-background-color: #27AE60;
+        -fx-background-radius: 25;
+        -fx-text-fill: #FFFFFF;
+        -fx-font-size:16;
+}
+
+.menu-item:focused {
+        -fx-background-color: #27AE60;
+        -fx-background-radius: 25;
+        -fx-text-fill: #FFFFFF;
+        -fx-font-size:16;
+}
+
+.menu-item:focused .label {
+        -fx-background-color: #27AE60;
+        -fx-background-radius: 25;
+        -fx-text-fill: #FFFFFF;
+        -fx-text-size:16;
+}
+
+.context-menu {
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0 7 7 7, 0 6 6 6, 0 5 5 5;
+   /* -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
+/*    -fx-padding: 0.666667em 0.083333em 0.666667em 0.083333em;  8 1 8 1 */
+    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; /* 4 1 8 1 */
+    -fx-text-size:14;
+}
+
+
+#message {
+    -fx-background-radius: 15;
+}
