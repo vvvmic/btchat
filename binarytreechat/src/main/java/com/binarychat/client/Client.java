@@ -70,11 +70,16 @@ public class Client {
                         messageFromServer = streamFromServer.readObject();
                         if (messageFromServer instanceof TextMessage) {
                             String message = ((TextMessage) messageFromServer).getTextMessage();
-                            String username = ((TextMessage) messageFromServer).getSenderAlias(); //todo username to message output
+                            String recipientAlias = ((TextMessage) messageFromServer).getRecipientAlias();
+                            Boolean isMulticastMessage = ((TextMessage) messageFromServer).getIsMulticastMessage();
+                            String senderAlias = ((TextMessage) messageFromServer).getSenderAlias(); //todo username to message output
                             LocalDateTime timestamp = ((TextMessage) messageFromServer).getCreatedTimeStamp(); //todo timestamp to message output
-                            if(Objects.equals(username, LoginScreenController.getChatWith())) {
-                                MessageScreenController.addLabel(username + ": " + message, vBox);
-                                messageList.add(timestamp + " " + username + ": " + message);
+                            if(Objects.equals(recipientAlias, LoginScreenController.getChatWith()) && isMulticastMessage) { //chatroom
+                                MessageScreenController.addLabel(senderAlias + ": " + message, vBox);
+                                messageList.add(timestamp + " " + senderAlias + ": " + message);
+                            } else if (Objects.equals(senderAlias, LoginScreenController.getChatWith()) && !isMulticastMessage) {//singlechat
+                                MessageScreenController.addLabel(senderAlias + ": " + message, vBox);
+                                messageList.add(timestamp + " " + senderAlias + ": " + message);
                             }
                         }
                     }
