@@ -96,6 +96,7 @@ public class MessageScreenController implements Initializable{
             @Override
             public void handle(ActionEvent event) {
                 String messageToSend = (message.getText());
+                String usernameToSend =(usernameField.getText());// NICKNAMES will be attached (▰˘◡˘▰)
 
                 HBox hbox = new HBox();
                 hbox.setAlignment(Pos.CENTER_RIGHT); //Ausrichtung von Hbox
@@ -109,9 +110,24 @@ public class MessageScreenController implements Initializable{
 
                 textFlow.setPadding(new Insets(10,15,10,15));
 
+                ///////////////////////NICKNAME/////////////////////////////////////
+                HBox hboxUsername = new HBox();
+                hboxUsername.setAlignment(Pos.CENTER_RIGHT);
+                hboxUsername.setPadding((new Insets(0,15,10,15)));
+
+                Text username = new Text(usernameToSend);
+                TextFlow textFlowUsername = new TextFlow(username);
+                textFlowUsername.setId("textFlowUsername");
+                textFlowUsername.setOpacity(0.5);
+                textFlowUsername.setStyle("-fx-font-size: 11px;");
+                textFlowUsername.setPadding(new Insets(0,5,0,5));
+
+                /////////////////////////NICKNAME////////////////////////////////////
+
                 hbox.getChildren().add(textFlow); //adding Textflow to horizontal box
                 vBox.getChildren().add(hbox); //dding horizontal box to vertical box
-
+                hboxUsername.getChildren().add(textFlowUsername);
+                vBox.getChildren().add(hboxUsername);
                 client.sendMessageToServer(messageToSend);
                 message.clear();
             }
