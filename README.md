@@ -19,4 +19,6 @@
 5. **Important**:
 
    - Enable multiple instance execution to call and chat with multiple clients on your device
+   - Currently only the "default" chatroom is available. No ChatRoom needs to be entered for this
+   - For the single chat a person input is required
 
