@@ -20,11 +20,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import javafx.util.converter.LocalDateTimeStringConverter;
+
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class MessageScreenController implements Initializable{
+
 
     @FXML
     private ScrollPane scroll;
@@ -98,6 +103,21 @@ public class MessageScreenController implements Initializable{
                 String messageToSend = (message.getText());
                 String usernameToSend =(usernameField.getText());// NICKNAMES will be attached (▰˘◡˘▰)
 
+                ///////////////////////////TIMESTAMP//////////////////////////////////////
+                String timeStamp = String.valueOf(LocalDateTime.now());
+
+                HBox hboxTimestamp = new HBox();
+                hboxTimestamp.setAlignment(Pos.CENTER_RIGHT);
+                hboxTimestamp.setPadding((new Insets(7,15,0,5)));
+
+                Text timestampForHbox = new Text(timeStamp);
+                TextFlow textFlowTimestamp = new TextFlow(timestampForHbox);
+                textFlowTimestamp.setId("textFlowTimestamp");
+                textFlowTimestamp.setOpacity(0.5);
+                textFlowTimestamp.setStyle("-fx-font-size: 10px;");
+                textFlowTimestamp.setPadding(new Insets(7,5,0,5));
+                ///////////////////////////TIMESTAMP/////////////////////////////////////
+
                 HBox hbox = new HBox();
                 hbox.setAlignment(Pos.CENTER_RIGHT); //Ausrichtung von Hbox
                 hbox.setPadding(new Insets(10,15,10,5));
@@ -113,21 +133,25 @@ public class MessageScreenController implements Initializable{
                 ///////////////////////NICKNAME/////////////////////////////////////
                 HBox hboxUsername = new HBox();
                 hboxUsername.setAlignment(Pos.CENTER_RIGHT);
-                hboxUsername.setPadding((new Insets(0,15,10,15)));
+                hboxUsername.setPadding((new Insets(7,15,0,5)));
 
                 Text username = new Text(usernameToSend);
                 TextFlow textFlowUsername = new TextFlow(username);
                 textFlowUsername.setId("textFlowUsername");
                 textFlowUsername.setOpacity(0.5);
                 textFlowUsername.setStyle("-fx-font-size: 11px;");
-                textFlowUsername.setPadding(new Insets(0,5,0,5));
-
+                textFlowUsername.setPadding(new Insets(7,5,0,5));
                 /////////////////////////NICKNAME////////////////////////////////////
 
+                hboxTimestamp.getChildren().add(textFlowTimestamp);
+                hboxUsername.getChildren().add(textFlowUsername);
+
+                vBox.getChildren().add(hboxUsername);
+                vBox.getChildren().add(hboxTimestamp);
                 hbox.getChildren().add(textFlow); //adding Textflow to horizontal box
                 vBox.getChildren().add(hbox); //dding horizontal box to vertical box
-                hboxUsername.getChildren().add(textFlowUsername);
-                vBox.getChildren().add(hboxUsername);
+
+
                 client.sendMessageToServer(messageToSend);
                 message.clear();
             }
@@ -151,10 +175,12 @@ public class MessageScreenController implements Initializable{
         textFlow.setPadding(new Insets(10,15,10,15));
         hBox.getChildren().add(textFlow); //adding to Hbox
 
+
         Platform.runLater(new Runnable() { //we could not be using another Thread, but this helps us with this problem
             @Override
             public void run() {
                 vBox.getChildren().add(hBox);
+
             }
         });
     }
