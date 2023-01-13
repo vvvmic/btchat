@@ -20,12 +20,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
-import javafx.util.converter.LocalDateTimeStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class MessageScreenController implements Initializable{
@@ -103,21 +102,6 @@ public class MessageScreenController implements Initializable{
                 String messageToSend = (message.getText());
                 String usernameToSend =(usernameField.getText());// NICKNAMES will be attached (▰˘◡˘▰)
 
-                ///////////////////////////TIMESTAMP//////////////////////////////////////
-                String timeStamp = String.valueOf(LocalDateTime.now());
-
-                HBox hboxTimestamp = new HBox();
-                hboxTimestamp.setAlignment(Pos.CENTER_RIGHT);
-                hboxTimestamp.setPadding((new Insets(7,15,0,5)));
-
-                Text timestampForHbox = new Text(timeStamp);
-                TextFlow textFlowTimestamp = new TextFlow(timestampForHbox);
-                textFlowTimestamp.setId("textFlowTimestamp");
-                textFlowTimestamp.setOpacity(0.5);
-                textFlowTimestamp.setStyle("-fx-font-size: 10px;");
-                textFlowTimestamp.setPadding(new Insets(7,5,0,5));
-                ///////////////////////////TIMESTAMP/////////////////////////////////////
-
                 HBox hbox = new HBox();
                 hbox.setAlignment(Pos.CENTER_RIGHT); //Ausrichtung von Hbox
                 hbox.setPadding(new Insets(10,15,10,5));
@@ -130,24 +114,43 @@ public class MessageScreenController implements Initializable{
 
                 textFlow.setPadding(new Insets(10,15,10,15));
 
-                ///////////////////////NICKNAME/////////////////////////////////////
+                ///////////////////////////TIMESTAMP/////////////////////////////////////
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh:mm a");
+                String lgt = (dtf.format(LocalDateTime.now()));
+
+                HBox hboxTimestamp = new HBox();
+                hboxTimestamp.setAlignment(Pos.CENTER_RIGHT);
+                hboxTimestamp.setPadding((new Insets(0,55,0,5)));
+
+                Text timestampForHbox = new Text(lgt);
+                TextFlow textFlowTimestamp = new TextFlow(timestampForHbox);
+                textFlowTimestamp.setId("textFlowTimestamp");
+
+                textFlowTimestamp.setOpacity(0.5);
+                textFlowTimestamp.setStyle("-fx-font-size: 10px;");
+                textFlowTimestamp.setPadding(new Insets(7,5,0,5));
+                ///////////////////////////TIMESTAMP/////////////////////////////////////
+
+                ///////////////////////NICKNAME//////////////////////////////////////////
                 HBox hboxUsername = new HBox();
                 hboxUsername.setAlignment(Pos.CENTER_RIGHT);
-                hboxUsername.setPadding((new Insets(7,15,0,5)));
+                hboxUsername.setPadding((new Insets(0,15,-19,5)));
 
                 Text username = new Text(usernameToSend);
                 TextFlow textFlowUsername = new TextFlow(username);
                 textFlowUsername.setId("textFlowUsername");
+
                 textFlowUsername.setOpacity(0.5);
                 textFlowUsername.setStyle("-fx-font-size: 11px;");
-                textFlowUsername.setPadding(new Insets(7,5,0,5));
-                /////////////////////////NICKNAME////////////////////////////////////
+                textFlowUsername.setPadding(new Insets(7,15,0,5));
+                /////////////////////////NICKNAME////////////////////////////////////////
 
                 hboxTimestamp.getChildren().add(textFlowTimestamp);
                 hboxUsername.getChildren().add(textFlowUsername);
 
                 vBox.getChildren().add(hboxUsername);
                 vBox.getChildren().add(hboxTimestamp);
+
                 hbox.getChildren().add(textFlow); //adding Textflow to horizontal box
                 vBox.getChildren().add(hbox); //dding horizontal box to vertical box
 
