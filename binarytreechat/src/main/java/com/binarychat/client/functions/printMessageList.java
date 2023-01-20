@@ -1,4 +1,4 @@
-package com.binarychat.client;
+package com.binarychat.client.functions;
 
 import javafx.stage.FileChooser;
 
@@ -6,8 +6,8 @@ import java.io.*;
 import java.util.List;
 
 public class printMessageList {
-    /*
-    Prints the passed string list to a text file at a location of choice
+    /**
+     *  Prints the passed string list to a text file at a location of choice
      */
     public static void printMessageList(List<String> messageList) {
         FileChooser fileChooser = new FileChooser();

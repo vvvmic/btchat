@@ -1,5 +1,6 @@
 package com.binarychat.client;
 
+import com.binarychat.client.functions.printMessageList;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -55,13 +56,17 @@ public class MessageScreenController implements Initializable{
         sendButton.setDisable(message.getText().isEmpty());
     }
 
+    /**
+     * @param event When the logout button is pressed, a pop up window appears that must be confirmed.
+     *              Afterwards the socket will be closed and the login screen will be shown again.
+     */
     @FXML
     protected void onLogout(ActionEvent event) throws IOException {
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);//pop up window appears when the logout button is selected
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Logout");
-        alert.setHeaderText("You are about to log out!");
-        alert.setContentText("Do you really want to log out?");
+        alert.setHeaderText("You are about to logout!");
+        alert.setContentText("Click OK if you really want to logout.");
 
         if(alert.showAndWait().get() == ButtonType.OK){
             FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("LoginScreen.fxml"));
@@ -74,6 +79,9 @@ public class MessageScreenController implements Initializable{
             stage.setScene(scene);}
     }
 
+    /**
+     * @param event The message list stored in the client is transferred and can be saved as a text file.
+     */
     @FXML
     protected void saveListToTextFile(ActionEvent event) {
         printMessageList.printMessageList(client.getMessageList());
@@ -130,22 +138,6 @@ public class MessageScreenController implements Initializable{
                 textFlowTimestamp.setStyle("-fx-font-size: 10px;");
                 textFlowTimestamp.setPadding(new Insets(7,5,0,5));
                 ///////////////////////////TIMESTAMP/////////////////////////////////////
-
-                /*HBox hboxUsername = new HBox();
-                hboxUsername.setAlignment(Pos.CENTER_RIGHT);
-                hboxUsername.setPadding((new Insets(0,5,-19,5)));
-
-                Text username = new Text(usernameToSend);
-                TextFlow textFlowUsername = new TextFlow(username);
-                textFlowUsername.setId("textFlowUsername");
-
-                textFlowUsername.setOpacity(0.5);
-                textFlowUsername.setStyle("-fx-font-size: 11px;");
-                textFlowUsername.setPadding(new Insets(7,15,0,5));
-*/
-
-                /*hboxUsername.getChildren().add(textFlowUsername);*/
-                /*vBox.getChildren().add(hboxUsername);*/
 
                 hboxTimestamp.getChildren().add(textFlowTimestamp);
                 vBox.getChildren().add(hboxTimestamp);

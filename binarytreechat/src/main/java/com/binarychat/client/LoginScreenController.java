@@ -1,6 +1,6 @@
 package com.binarychat.client;
 
-import com.binarychat.IPAddress.checkIPAddress;
+import com.binarychat.ipAddress.checkIPAddress;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -70,12 +70,9 @@ public class LoginScreenController {
         stage.setScene(scene);
     }
 
-    public static String getUsername(){return username;}
-
-    public static String getIpAddress(){return ipAddress;}
-
-    public static String getChatWith(){return chatWith;}
-
+    /**
+     * @param event if a condition is not met, the connect button cannot be selected
+     */
     @FXML
     protected void setConnectButtonEnable(KeyEvent event) {
         if(!usernameField.getText().isEmpty()  && checkIPAddress.validateIP(ipAddressField.getText())) {
@@ -83,8 +80,13 @@ public class LoginScreenController {
         }else {
             connectButton.setDisable(true);
         }
-
     }
+
+    public static String getUsername(){return username;}
+
+    public static String getIpAddress(){return ipAddress;}
+
+    public static String getChatWith(){return chatWith;}
 
     public static void setIsBroadcast(boolean broadcast){isBroadcast = broadcast;}
 

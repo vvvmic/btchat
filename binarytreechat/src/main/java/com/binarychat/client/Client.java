@@ -7,6 +7,7 @@ import javafx.scene.layout.VBox;
 import java.io.*;
 import java.net.Socket;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,6 +31,9 @@ public class Client {
         }
     }
 
+    /**
+     * if an error is triggered by the server, the connection is terminated
+     */
     public void closeEverything(Socket socket, ObjectInputStream streamFromServer, ObjectOutputStream streamToServer){
         try{
             if (streamFromServer != null) {
@@ -50,7 +54,10 @@ public class Client {
         try{
             TextMessage messagetoSend = new TextMessage(LoginScreenController.getUsername(), LoginScreenController.getChatWith(), LoginScreenController.getIsBroadcast(), LocalDateTime.now(), messageToServer); //Username, Target (Group or User), Mutlicast or Broadcast, Timestamp, Message
             streamToServer.writeObject(messagetoSend);
-            messageList.add(LocalDateTime.now() + " " + LoginScreenController.getUsername()+ ": " + messageToServer);
+            LocalDateTime timestamp = LocalDateTime.now();
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedTimestamp = timestamp.format(dateTimeFormatter);
+            messageList.add(formattedTimestamp + " " + LoginScreenController.getUsername()+ ": " + messageToServer);
         }catch(IOException exception){
             exception.printStackTrace();
             System.out.println("Error sending message to the Server!");
@@ -72,14 +79,18 @@ public class Client {
                             String message = ((TextMessage) messageFromServer).getTextMessage();
                             String recipientAlias = ((TextMessage) messageFromServer).getRecipientAlias();
                             Boolean isMulticastMessage = ((TextMessage) messageFromServer).getIsMulticastMessage();
-                            String senderAlias = ((TextMessage) messageFromServer).getSenderAlias(); //todo username to message output
-                            LocalDateTime timestamp = ((TextMessage) messageFromServer).getCreatedTimeStamp(); //todo timestamp to message output
+                            String senderAlias = ((TextMessage) messageFromServer).getSenderAlias();
+                            LocalDateTime timestamp = ((TextMessage) messageFromServer).getCreatedTimeStamp();
+
+                            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                            String formattedTimestamp = timestamp.format(dateTimeFormatter);
+
                             if(Objects.equals(recipientAlias, LoginScreenController.getChatWith()) && isMulticastMessage) { //chatroom
                                 MessageScreenController.addLabel(senderAlias , message, vBox);
-                                messageList.add(timestamp + " " + senderAlias + ": " + message);
+                                messageList.add(formattedTimestamp + " " + senderAlias + ": " + message);
                             } else if (Objects.equals(senderAlias, LoginScreenController.getChatWith()) && !isMulticastMessage) {//singlechat
                                 MessageScreenController.addLabel(senderAlias, message, vBox);
-                                messageList.add(timestamp + " " + senderAlias + ": " + message);
+                                messageList.add(formattedTimestamp + " " + senderAlias + ": " + message);
                             }
                         }
                     }
@@ -92,7 +103,7 @@ public class Client {
         }).start();
     }
 
-    public void logoutFromServer(Client client) throws IOException { //sends a logout message an closes the connection to the server
+    public void logoutFromServer(Client client) throws IOException { //sends a logout message and closes the connection to the server
         sendMessageToServer(LoginScreenController.getUsername() + " left the chat-room.");
         client.getSocket().close();
     }

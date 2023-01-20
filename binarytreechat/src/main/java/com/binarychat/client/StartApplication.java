@@ -26,17 +26,23 @@ public class StartApplication extends Application {
         });
     }
 
-    public void closeWindow(Stage stage){ //pop up window appears when the application is to be closed
+    /**
+     * if an attempt is made to close the application window, a pop up window appears to prevent accidental closure
+     */
+    public void closeWindow(Stage stage){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Exit");
         alert.setHeaderText("You are about to exit!");
-        alert.setContentText("Do you really want to exit?");
+        alert.setContentText("Click OK if you really want to exit.");
 
         if(alert.showAndWait().get() == ButtonType.OK){
             Runtime.getRuntime().exit(0);
         }
     }
 
+    /**
+     * main starts the client application
+     */
     public static void main(String[] args) {
         launch();
     }

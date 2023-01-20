@@ -16,6 +16,10 @@ public class StartScreenController {
     @FXML
     private Button singleChatButton;
 
+    /**
+     * @param event pressing the chatroom button starts the event
+     * for future messages it is stored that these should be broadcast
+     */
     @FXML
     protected void onConnectChatRoom(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("LoginScreen.fxml"));
@@ -27,6 +31,10 @@ public class StartScreenController {
         stage.setScene(scene);
     }
 
+    /**
+     * @param event pressing the singe chat button starts the event
+     * for future messages it is stored that these should be not broadcast
+     */
     @FXML
     protected void onConnectSingleChat(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("LoginScreen.fxml"));
