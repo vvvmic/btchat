@@ -75,10 +75,10 @@ public class Client {
                             String senderAlias = ((TextMessage) messageFromServer).getSenderAlias(); //todo username to message output
                             LocalDateTime timestamp = ((TextMessage) messageFromServer).getCreatedTimeStamp(); //todo timestamp to message output
                             if(Objects.equals(recipientAlias, LoginScreenController.getChatWith()) && isMulticastMessage) { //chatroom
-                                MessageScreenController.addLabel(senderAlias + ": " + message, vBox);
+                                MessageScreenController.addLabel(senderAlias , message, vBox);
                                 messageList.add(timestamp + " " + senderAlias + ": " + message);
                             } else if (Objects.equals(senderAlias, LoginScreenController.getChatWith()) && !isMulticastMessage) {//singlechat
-                                MessageScreenController.addLabel(senderAlias + ": " + message, vBox);
+                                MessageScreenController.addLabel(senderAlias, message, vBox);
                                 messageList.add(timestamp + " " + senderAlias + ": " + message);
                             }
                         }
@@ -92,7 +92,7 @@ public class Client {
         }).start();
     }
 
-    public void logoutfromServer(Client client) throws IOException { //sends a logout message an closes the connection to the server
+    public void logoutFromServer(Client client) throws IOException { //sends a logout message an closes the connection to the server
         sendMessageToServer(LoginScreenController.getUsername() + " left the chat-room.");
         client.getSocket().close();
     }

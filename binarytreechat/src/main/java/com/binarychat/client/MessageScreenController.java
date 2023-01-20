@@ -64,14 +64,14 @@ public class MessageScreenController implements Initializable{
         alert.setContentText("Do you really want to log out?");
 
         if(alert.showAndWait().get() == ButtonType.OK){
-        FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("LoginScreen.fxml"));
-        Stage stage = (Stage) root.getScene().getWindow();
-        Scene scene = new Scene(fxmlLoader.load(), 720, 720);
-        scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-        stage.setTitle("BinaryChat");
-        stage.getIcons().add(new Image("file:icon.png"));
-        client.logoutfromServer(this.client);
-        stage.setScene(scene);}
+            FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("LoginScreen.fxml"));
+            Stage stage = (Stage) root.getScene().getWindow();
+            Scene scene = new Scene(fxmlLoader.load(), 720, 720);
+            scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+            stage.setTitle("BinaryChat");
+            stage.getIcons().add(new Image("file:icon.png"));
+            client.logoutFromServer(this.client);
+            stage.setScene(scene);}
     }
 
     @FXML
@@ -104,7 +104,7 @@ public class MessageScreenController implements Initializable{
 
                 HBox hbox = new HBox();
                 hbox.setAlignment(Pos.CENTER_RIGHT); //Ausrichtung von Hbox
-                hbox.setPadding(new Insets(10,15,10,5));
+                hbox.setPadding(new Insets(10,10,10,5));
 
                 Text text = new Text(messageToSend);
                 TextFlow textFlow = new TextFlow(text); //wrapping the text, reach TextField
@@ -120,7 +120,7 @@ public class MessageScreenController implements Initializable{
 
                 HBox hboxTimestamp = new HBox();
                 hboxTimestamp.setAlignment(Pos.CENTER_RIGHT);
-                hboxTimestamp.setPadding((new Insets(0,55,0,5)));
+                hboxTimestamp.setPadding((new Insets(0,15,0,5)));
 
                 Text timestampForHbox = new Text(lgt);
                 TextFlow textFlowTimestamp = new TextFlow(timestampForHbox);
@@ -131,10 +131,9 @@ public class MessageScreenController implements Initializable{
                 textFlowTimestamp.setPadding(new Insets(7,5,0,5));
                 ///////////////////////////TIMESTAMP/////////////////////////////////////
 
-                ///////////////////////NICKNAME//////////////////////////////////////////
-                HBox hboxUsername = new HBox();
+                /*HBox hboxUsername = new HBox();
                 hboxUsername.setAlignment(Pos.CENTER_RIGHT);
-                hboxUsername.setPadding((new Insets(0,15,-19,5)));
+                hboxUsername.setPadding((new Insets(0,5,-19,5)));
 
                 Text username = new Text(usernameToSend);
                 TextFlow textFlowUsername = new TextFlow(username);
@@ -143,17 +142,15 @@ public class MessageScreenController implements Initializable{
                 textFlowUsername.setOpacity(0.5);
                 textFlowUsername.setStyle("-fx-font-size: 11px;");
                 textFlowUsername.setPadding(new Insets(7,15,0,5));
-                /////////////////////////NICKNAME////////////////////////////////////////
+*/
+
+                /*hboxUsername.getChildren().add(textFlowUsername);*/
+                /*vBox.getChildren().add(hboxUsername);*/
 
                 hboxTimestamp.getChildren().add(textFlowTimestamp);
-                hboxUsername.getChildren().add(textFlowUsername);
-
-                vBox.getChildren().add(hboxUsername);
                 vBox.getChildren().add(hboxTimestamp);
-
                 hbox.getChildren().add(textFlow); //adding Textflow to horizontal box
                 vBox.getChildren().add(hbox); //dding horizontal box to vertical box
-
 
                 client.sendMessageToServer(messageToSend);
                 message.clear();
@@ -161,7 +158,7 @@ public class MessageScreenController implements Initializable{
         });
     }
 
-    public static void addLabel(String messageFromServer, VBox vBox){ //GUI for receiving of userMessageTypes
+    public static void addLabel(String Username, String messageFromServer, VBox vBox){ //GUI for receiving of userMessageTypes
         HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER_LEFT);
         hBox.setPadding(new Insets(10,5,10,15));
@@ -176,14 +173,47 @@ public class MessageScreenController implements Initializable{
                         "-fx-background-radius: 20px;");
 
         textFlow.setPadding(new Insets(10,15,10,15));
-        hBox.getChildren().add(textFlow); //adding to Hbox
 
+        ///////////////////////////TIMESTAMP/////////////////////////////////////
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh:mm a");
+        String lgt = (dtf.format(LocalDateTime.now()));
+
+        HBox hboxTimestamp = new HBox();
+        hboxTimestamp.setAlignment(Pos.CENTER_LEFT);
+        hboxTimestamp.setPadding((new Insets(0,0,0,60)));
+
+        Text timestampForHbox = new Text(lgt);
+        TextFlow textFlowTimestamp = new TextFlow(timestampForHbox);
+        textFlowTimestamp.setId("textFlowTimestamp");
+
+        textFlowTimestamp.setOpacity(0.5);
+        textFlowTimestamp.setStyle("-fx-font-size: 10px;");
+        textFlowTimestamp.setPadding(new Insets(7,5,0,5));
+
+        ///////////////////////NICKNAME//////////////////////////////////////////
+        HBox hboxUsername = new HBox();
+        hboxUsername.setAlignment(Pos.CENTER_LEFT);
+        hboxUsername.setPadding((new Insets(0,5,-19,10)));
+
+        Text username = new Text(Username);
+        TextFlow textFlowUsername = new TextFlow(username);
+        textFlowUsername.setId("textFlowUsername");
+
+        textFlowUsername.setOpacity(0.5);
+        textFlowUsername.setStyle("-fx-font-size: 11px;");
+        textFlowUsername.setPadding(new Insets(7,15,0,5));
+
+        hboxTimestamp.getChildren().add(textFlowTimestamp);
+        hboxUsername.getChildren().add(textFlowUsername);
+
+        hBox.getChildren().add(textFlow); //adding to Hbox
 
         Platform.runLater(new Runnable() { //we could not be using another Thread, but this helps us with this problem
             @Override
             public void run() {
+                vBox.getChildren().add(hboxUsername);
+                vBox.getChildren().add(hboxTimestamp);
                 vBox.getChildren().add(hBox);
-
             }
         });
     }
