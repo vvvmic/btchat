@@ -108,7 +108,6 @@ public class MessageScreenController implements Initializable{
             @Override
             public void handle(ActionEvent event) {
                 String messageToSend = (message.getText());
-                String usernameToSend =(usernameField.getText());// NICKNAMES will be attached (▰˘◡˘▰)
 
                 HBox hbox = new HBox();
                 hbox.setAlignment(Pos.CENTER_RIGHT); //Ausrichtung von Hbox

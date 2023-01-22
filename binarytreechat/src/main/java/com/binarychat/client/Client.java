@@ -87,7 +87,7 @@ public class Client {
                         if (messageFromServer instanceof TextMessage) {
                             String message = ((TextMessage) messageFromServer).getTextMessage();
                             String recipientAlias = ((TextMessage) messageFromServer).getRecipientAlias();
-                            Boolean isMulticastMessage = ((TextMessage) messageFromServer).getIsMulticastMessage();
+                            boolean isMulticastMessage = ((TextMessage) messageFromServer).getIsMulticastMessage();
                             String senderAlias = ((TextMessage) messageFromServer).getSenderAlias();
                             LocalDateTime timestamp = ((TextMessage) messageFromServer).getCreatedTimeStamp();
 
