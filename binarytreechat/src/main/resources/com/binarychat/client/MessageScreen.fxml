@@ -54,16 +54,4 @@
     <Text fill="#726c6c" layoutX="52.0" layoutY="670.0" stroke="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="logged as" />
     <Text fx:id="usernameField" layoutX="122.0" layoutY="670.0" stroke="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="username C" textAlignment="CENTER" />
 
-    <!--<Button fx:id="logoutButton" layoutX="52.0" layoutY="647.0" mnemonicParsing="false" onAction="#onLogout" prefHeight="35.0" prefWidth="120.0" text="Log out">
-        <cursor>
-        <Cursor fx:constant="HAND" />
-        </cursor>
-    </Button>-->
-
-    <!--<Button fx:id="saveTextFile" layoutX="540.0" layoutY="647.0" mnemonicParsing="false" onAction="#saveListToTextFile" prefHeight="35.0" prefWidth="120.0" text="Save Messages to Textfile">
-        <cursor>
-            <Cursor fx:constant="HAND" />
-        </cursor>
-    </Button>-->
-
 </AnchorPane>
