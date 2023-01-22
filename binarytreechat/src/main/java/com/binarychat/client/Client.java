@@ -70,12 +70,18 @@ public class Client {
             @Override
             public void run() { //listen for userMessageTypes while the client is still connected
                 Object messageFromServer;
-                ServiceRequestMessage serviceRequestMessage = new ServiceRequestMessage(LoginScreenController.getUsername(), ServiceRequestType.HANDSHAKE);
-                if (LoginScreenController.getIsBroadcast()){
-                    serviceRequestMessage = new ServiceRequestMessage(LoginScreenController.getChatWith(), ServiceRequestType.JOINGROUP);
-                }
+
                 try{
+                    // doing server handshake
+                    ServiceRequestMessage serviceRequestMessage = new ServiceRequestMessage(LoginScreenController.getUsername(), ServiceRequestType.HANDSHAKE);
                     streamToServer.writeObject(serviceRequestMessage);
+
+                    // joining chatgroup if desired
+                    if (LoginScreenController.getIsBroadcast()){
+                        serviceRequestMessage = new ServiceRequestMessage(LoginScreenController.getChatWith(), ServiceRequestType.JOINGROUP);
+                        streamToServer.writeObject(serviceRequestMessage);
+                    }
+
                     while(socket.isConnected()) {
                         messageFromServer = streamFromServer.readObject();
                         if (messageFromServer instanceof TextMessage) {
