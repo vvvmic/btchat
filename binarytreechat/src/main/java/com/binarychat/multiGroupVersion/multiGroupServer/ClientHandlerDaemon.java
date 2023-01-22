@@ -106,8 +106,10 @@ public class ClientHandlerDaemon extends Thread {
             closeEverything();
             System.out.println("Client " + this.getName() + " disconnected");
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error in run() in Thread " + this.getName());
             closeEverything();
+            e.printStackTrace();
+            System.out.println("Stacktrce printed in " + this.getName());
         }
     }//end public void run()
 
@@ -130,6 +132,7 @@ public class ClientHandlerDaemon extends Thread {
                 if(!aliasAlreadyExists) {
                     this.setName(((ServiceRequestMessage) message).getName());
                     this.messengerServiceEnabled = true;
+                    System.out.println("Server handshake done with " + this.getName());
                     break;
                 }
                 else {
@@ -279,12 +282,15 @@ public class ClientHandlerDaemon extends Thread {
                 this.clientSocket.close();
             }
 
-            this.allClientHandlerDaemons.remove(this);
-
             for (GroupContainer groupContainer : allChatGroups) {
                 groupContainer.getGroupMemberList().remove(this);
             }
+
+            this.allClientHandlerDaemons.remove(this);
+
+            System.out.println("Everything closed in Thread " + this.getName());
         } catch (IOException e){
+            System.out.println("Error in closeEverything() in Thread " + this.getName());
             e.printStackTrace();
         }
     }//end public void closeEverything(Socket clientSocket, ObjectOutputStream streamToClient, ObjectOutputStream streamFromClient)
