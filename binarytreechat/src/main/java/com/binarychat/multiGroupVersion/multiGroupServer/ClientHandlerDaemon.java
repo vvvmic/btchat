@@ -176,7 +176,9 @@ public class ClientHandlerDaemon extends Thread {
             }
         }
 
-        allChatGroups.add(new GroupContainer(serviceRequestMessage.getName()));
+        GroupContainer newGroupContainer = new GroupContainer(serviceRequestMessage.getName());
+        newGroupContainer.getGroupMemberList().add(this);
+        allChatGroups.add(newGroupContainer);
     }//end private void joinChatGroup(ServiceRequestMessage serviceRequestMessage) throws Exception
 
     private void exitChatGroup(ServiceRequestMessage serviceRequestMessage) throws Exception {
