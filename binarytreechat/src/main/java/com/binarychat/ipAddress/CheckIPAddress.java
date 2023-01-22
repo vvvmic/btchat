@@ -2,7 +2,7 @@ package com.binarychat.ipAddress;
 
 import java.util.regex.Pattern;
 
-public class checkIPAddress {
+public class CheckIPAddress {
     /**
      * checks if the passed IP Address is correct by comparing it with the pattern
      */

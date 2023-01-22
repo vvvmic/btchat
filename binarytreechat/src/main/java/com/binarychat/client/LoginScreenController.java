@@ -1,6 +1,6 @@
 package com.binarychat.client;
 
-import com.binarychat.ipAddress.checkIPAddress;
+import com.binarychat.ipAddress.CheckIPAddress;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -75,7 +75,7 @@ public class LoginScreenController {
      */
     @FXML
     protected void setConnectButtonEnable(KeyEvent event) {
-        if(!usernameField.getText().isEmpty()  && checkIPAddress.validateIP(ipAddressField.getText())) {
+        if(!usernameField.getText().isEmpty()  && CheckIPAddress.validateIP(ipAddressField.getText())) {
             connectButton.setDisable(false);
         }else {
             connectButton.setDisable(true);

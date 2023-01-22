@@ -5,7 +5,7 @@ import javafx.stage.FileChooser;
 import java.io.*;
 import java.util.List;
 
-public class printMessageList {
+public class PrintMessageList {
     /**
      *  Prints the passed string list to a text file at a location of choice
      */

@@ -1,6 +1,6 @@
 package com.binarychat.client;
 
-import com.binarychat.client.functions.printMessageList;
+import com.binarychat.client.functions.PrintMessageList;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -84,7 +84,7 @@ public class MessageScreenController implements Initializable{
      */
     @FXML
     protected void saveListToTextFile(ActionEvent event) {
-        printMessageList.printMessageList(client.getMessageList());
+        PrintMessageList.printMessageList(client.getMessageList());
     }
 
     @Override
