@@ -166,7 +166,7 @@ public class ClientHandlerDaemon extends Thread {
 
     private void joinChatGroup(ServiceRequestMessage serviceRequestMessage) throws Exception {
         for (GroupContainer groupContainer : allChatGroups) {
-            if (groupContainer.getChatGroupName().equals(serviceRequestMessage.getName())) {
+            if (groupContainer.getGroupName().equals(serviceRequestMessage.getName())) {
                 groupContainer.getGroupMemberList().add(this);
                 return;
             }
@@ -179,7 +179,7 @@ public class ClientHandlerDaemon extends Thread {
 
     private void exitChatGroup(ServiceRequestMessage serviceRequestMessage) throws Exception {
         for (GroupContainer groupContainer : allChatGroups) {
-            if (groupContainer.getChatGroupName().equals(serviceRequestMessage.getName())) {
+            if (groupContainer.getGroupName().equals(serviceRequestMessage.getName())) {
                 allChatGroups.remove(groupContainer);
                 return;
             }
@@ -193,7 +193,7 @@ public class ClientHandlerDaemon extends Thread {
         boolean groupAlreadyExists = false;
 
         for (GroupContainer groupContainer : allChatGroups) {
-            if (groupContainer.getChatGroupName().equals(serviceRequestMessage.getName())) {
+            if (groupContainer.getGroupName().equals(serviceRequestMessage.getName())) {
                 groupAlreadyExists = true;
                 break;
             }
@@ -210,7 +210,7 @@ public class ClientHandlerDaemon extends Thread {
 
     private void deleteChatGroup(ServiceRequestMessage serviceRequestMessage) throws Exception {
         for (GroupContainer groupContainer : allChatGroups) {
-            if (groupContainer.getChatGroupName().equals(serviceRequestMessage.getName())) {
+            if (groupContainer.getGroupName().equals(serviceRequestMessage.getName())) {
                 allChatGroups.remove(groupContainer);
                 break;
             }
@@ -245,7 +245,7 @@ public class ClientHandlerDaemon extends Thread {
 
         /* searching for the target chat group */
         for (GroupContainer groupContainer : allChatGroups) {
-            if (groupContainer.getChatGroupName().equals(message.getRecipientAlias())) {
+            if (groupContainer.getGroupName().equals(message.getRecipientAlias())) {
                 targetChatGroup = groupContainer;
                 break;
             }

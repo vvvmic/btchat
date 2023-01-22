@@ -21,7 +21,7 @@ public class ServiceReplyMessage implements Serializable {
     // === 4. STATIC METHODS ===
     // === 5. GETTER AND SETTER ===
     public ServiceReplyType getServiceReply(){
-        return serviceReply;
+        return this.serviceReply;
     }//end public ServiceReplyType getServiceReply()
 
 

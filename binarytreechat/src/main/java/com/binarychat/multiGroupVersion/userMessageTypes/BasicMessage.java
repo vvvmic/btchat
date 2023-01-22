@@ -29,7 +29,7 @@ public class BasicMessage implements Serializable {
     // === 4. STATIC METHODS ===
     // === 5. GETTER AND SETTER ===
     public String getSenderAlias() {
-        return senderAlias;
+        return this.senderAlias;
     }//end public String getName()
 
     public String getRecipientAlias() {

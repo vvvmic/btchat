@@ -10,7 +10,7 @@ public class GroupContainer {
     // === 0. NOTES ===
     // === 1. CLASS VARIABLES ===
     // === 2. OBJECT VARIABLES ===
-    private String chatGroupName;
+    private String groupName;
     private List<ClientHandlerDaemon> groupMemberList = Collections.synchronizedList(new LinkedList<ClientHandlerDaemon>());
 
 
@@ -18,25 +18,21 @@ public class GroupContainer {
     // --- 3.1 STATIC BLOCKS ---
     // --- 3.2 INSTANCE INITIALIZER ---
     // --- 3.3 REAL CONSTRUCTORS ---
-    public GroupContainer(String chatGroupName) {
-        this.chatGroupName = chatGroupName;
-    }//end public GroupContainer(String chatGroupName)
+    public GroupContainer(String groupName) {
+        this.groupName = groupName;
+    }//end public GroupContainer(String groupName)
 
 
     // === 4. STATIC METHODS ===
     // === 5. GETTER AND SETTER ===
 
-    public String getChatGroupName() {
-        return chatGroupName;
-    }//end public String getChatGroupName()
+    public String getGroupName() {
+        return this.groupName;
+    }//end public String getGroupName()
 
     public List<ClientHandlerDaemon> getGroupMemberList() {
-        return groupMemberList;
+        return this.groupMemberList;
     }//end public List<ClientHandlerDaemon> getGroupMemberList()
-
-    /*public synchronized void addSync(ClientHandlerDaemon userDaemon) {
-        this.groupMemberList.add(userDaemon);
-    }//end public synchronized void addSync(ClientHandlerDaemon userDaemon)*/
 
 
     // === 6. MISCELLANEOUS OBJECT METHODS ===

@@ -23,11 +23,11 @@ public class ServiceRequestMessage implements Serializable {
     // === 4. STATIC METHODS ===
     // === 5. GETTER AND SETTER ===
     public String getName() {
-        return name;
+        return this.name;
     }//end public String getName()
 
     public ServiceRequestType getServiceRequest() {
-        return serviceRequest;
+        return this.serviceRequest;
     }//end ServiceRequestType getServiceRequest()
 
 
