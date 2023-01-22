@@ -42,12 +42,6 @@ public class MessengerServer {
     public void startServer() {
         System.out.println("---SERVER STARTED---");
 
-        /* (beta) create default chat group */
-        GroupContainer defaultChatgroup = new GroupContainer("default");
-        allChatGroups.add(defaultChatgroup);
-
-
-
         try {
             ServerSocket serverSocket = new ServerSocket(localPortNumber);
             ClientHandlerDaemon tempClientHandlerDaemon;

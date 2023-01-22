@@ -58,9 +58,6 @@ public class ClientHandlerDaemon extends Thread {
     // === 6. MISCELLANEOUS OBJECT METHODS ===
     @Override
     public void run() {
-        /* (beta) enter default chat group */
-        enterDefaultChatGroup();
-
         try {
             streamToClient = new ObjectOutputStream(clientSocket.getOutputStream());
             streamFromClient = new ObjectInputStream(clientSocket.getInputStream());
@@ -118,19 +115,11 @@ public class ClientHandlerDaemon extends Thread {
         }
     }//end public void run()
 
-    public void enterDefaultChatGroup() {
-        for (GroupContainer groupContainer : allChatGroups) {
-            if (groupContainer.getChatGroupName().equals("default")) {
-                groupContainer.getGroupMemberList().add(this);
-            }
-        }
-    }//end public void enterDefaultChatGroup()
-
     private void serverHandshake() throws Exception {
         Object message;
         boolean aliasAlreadyExists = false;
 
-        while(!messengerServiceEnabled) {
+        while(!this.messengerServiceEnabled) {
             message = streamFromClient.readObject();
 
             if ((message instanceof ServiceRequestMessage) &&
@@ -144,7 +133,7 @@ public class ClientHandlerDaemon extends Thread {
 
                 if(!aliasAlreadyExists) {
                     this.setName(((ServiceRequestMessage) message).getName());
-                    messengerServiceEnabled = true;
+                    this.messengerServiceEnabled = true;
                     break;
                 }
                 else {
