@@ -102,14 +102,9 @@ public class ClientHandlerDaemon extends Thread {
                     }
                 }
             }
-
+        } catch (Exception e) {
             closeEverything();
             System.out.println("Client " + this.getName() + " disconnected");
-        } catch (Exception e) {
-            System.out.println("Error in run() in Thread " + this.getName());
-            closeEverything();
-            e.printStackTrace();
-            System.out.println("Stacktrce printed in " + this.getName());
         }
     }//end public void run()
 
@@ -234,7 +229,7 @@ public class ClientHandlerDaemon extends Thread {
         /* forwarding the message if the targeted client has been found, otherwise sending back an error textmessage */
         if (messageTarget != null) {
             messageTarget.getStreamToClient().writeObject(message);
-            System.out.println("Unicast Message forwarded");
+            System.out.println("Unicast Message forwarded from " + this.getName() + " to " + message.getRecipientAlias());
         }
         else {
             ServiceReplyMessage errorMessage = new ServiceReplyMessage(ServiceReplyType.RECIPIENTNOTFOUND);
@@ -262,7 +257,7 @@ public class ClientHandlerDaemon extends Thread {
                 }
             }
 
-            System.out.println("Multicast Message forwarded");
+            System.out.println("Multicast Message forwarded from " + this.getName() + " to " + message.getRecipientAlias());
         }
         else {
             ServiceReplyMessage errorMessage = new ServiceReplyMessage(ServiceReplyType.RECIPIENTNOTFOUND);
@@ -290,7 +285,6 @@ public class ClientHandlerDaemon extends Thread {
 
             System.out.println("Everything closed in Thread " + this.getName());
         } catch (IOException e){
-            System.out.println("Error in closeEverything() in Thread " + this.getName());
             e.printStackTrace();
         }
     }//end public void closeEverything(Socket clientSocket, ObjectOutputStream streamToClient, ObjectOutputStream streamFromClient)
