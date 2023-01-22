@@ -71,6 +71,9 @@ public class Client {
             public void run() { //listen for userMessageTypes while the client is still connected
                 Object messageFromServer;
                 ServiceRequestMessage serviceRequestMessage = new ServiceRequestMessage(LoginScreenController.getUsername(), ServiceRequestType.HANDSHAKE);
+                if (LoginScreenController.getIsBroadcast()){
+                    serviceRequestMessage = new ServiceRequestMessage(LoginScreenController.getChatWith(), ServiceRequestType.JOINGROUP);
+                }
                 try{
                     streamToServer.writeObject(serviceRequestMessage);
                     while(socket.isConnected()) {
