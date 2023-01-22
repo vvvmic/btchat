@@ -187,8 +187,7 @@ public class ClientHandlerDaemon extends Thread {
             }
         }
 
-        ServiceReplyMessage errorMessage = new ServiceReplyMessage(ServiceReplyType.RECIPIENTNOTFOUND);
-        streamToClient.writeObject(errorMessage);
+        allChatGroups.add(new GroupContainer(serviceRequestMessage.getName()));
     }//end private void joinChatGroup(ServiceRequestMessage serviceRequestMessage) throws Exception
 
     private void exitChatGroup(ServiceRequestMessage serviceRequestMessage) throws Exception {
